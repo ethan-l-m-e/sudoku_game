@@ -13,10 +13,11 @@
 .game-board {
     width: fit-content;
     display: inline-grid;
-    grid-template-columns: repeat(9, var(--game-tile-height));
+    grid-template-columns: var(--game-tile-height) var(--game-tile-height) var(--game-tile-height) 3px var(--game-tile-height) var(--game-tile-height) var(--game-tile-height) 3px var(--game-tile-height) var(--game-tile-height) var(--game-tile-height);
+    grid-template-rows: var(--game-tile-height) var(--game-tile-height) var(--game-tile-height) 3px var(--game-tile-height) var(--game-tile-height) var(--game-tile-height) 3px var(--game-tile-height) var(--game-tile-height) var(--game-tile-height);;
     justify-content: center;
     gap: 1px;
-    background-color: lightgrey;
+    background-color: grey;
     border: 5px solid black;
 }
 
