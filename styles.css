@@ -1,0 +1,27 @@
+:root {
+    --game-tile-height: 60px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.game-container {
+    text-align: center;
+}
+
+.game-board {
+    width: fit-content;
+    display: inline-grid;
+    grid-template-columns: repeat(9, var(--game-tile-height));
+    justify-content: center;
+    gap: 1px;
+    background-color: lightgrey;
+    border: 5px solid black;
+}
+
+.game-tile {
+    width: var(--game-tile-height);
+    height: var(--game-tile-height);
+    background-color: white;
+}

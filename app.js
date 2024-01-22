@@ -11,6 +11,5 @@ if (document.readyState == "loading") {
 
 // Main function
 function ready() {
-    const gameBoard = document.getElementById("gameBoard");
-    gameBoard.innerHTML = "Sudoku";
+    // Do something
 }
