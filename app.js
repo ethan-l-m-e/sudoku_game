@@ -97,6 +97,7 @@ function ready() {
         }
     }
 
+    // Player presses a number from 1–9.
     function setTile(key) {
         let currentTile = gameTiles[tileSelected];
 
