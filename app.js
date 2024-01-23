@@ -51,6 +51,11 @@ function ready() {
         });
     }
 
+    // Handle player keyboard input.
+    function addKeyboardListeners() {
+        document.addEventListener("keydown", onKeyDown);
+    }
+
     // Player clicks on a tile.
     function selectTile(e) {
         let t = e.target;
@@ -66,6 +71,39 @@ function ready() {
 
         // Select new tile.
         t.classList.add("selected");
+    }
+
+    // Player presses the keyboard.
+    function onKeyDown(e) {
+        e.preventDefault(); // WARNING: disables browser shortcuts.
+
+        switch (e.key) {
+            case "Backspace":
+                // TODO: Remove tile content if filled by player.
+                break;
+            case "1": // Player enters a number from 1–9.
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+                setTile(e.key);
+                break;
+            default:
+                // Do nothing.
+        }
+    }
+
+    function setTile(key) {
+        let currentTile = gameTiles[tileSelected];
+
+        // Tile already has the same value.
+        if (currentTile.innerHTML === key) return;
+
+        currentTile.innerHTML = key;
     }
 
     // Fill in tiles based on current data.
@@ -91,6 +129,7 @@ function ready() {
         addGameTileListeners();
         gameTiles[0].click();
         populateGameBoard();
+        addKeyboardListeners();
     }
 
     initGame();
