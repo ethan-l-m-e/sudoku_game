@@ -11,5 +11,24 @@ if (document.readyState == "loading") {
 
 // Main function
 function ready() {
-    // Do something
+
+    // GAME VARIABLES.
+    const gameTiles = document.querySelectorAll("div[data-tile]");
+
+    // Set tile ids.
+    function setupGameTileIds() {
+        let count = 0;
+        gameTiles.forEach(tile => {
+            tile.dataset.tile = count;
+            count++;
+        });
+    }
+
+    // Setup the game.
+    function initGame() {
+        setupGameTileIds();
+    }
+
+    initGame();
 }
+
