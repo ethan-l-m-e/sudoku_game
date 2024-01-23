@@ -25,6 +25,9 @@
     width: var(--game-tile-height);
     height: var(--game-tile-height);
     background-color: white;
+    line-height: var(--game-tile-height);
+    font-weight: bolder;
+    font-size: xx-large;
 }
 
 .selected {
