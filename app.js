@@ -14,6 +14,7 @@ function ready() {
 
     // GAME VARIABLES.
     const gameTiles = document.querySelectorAll("div[data-tile]");
+    let tileSelected = null;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -24,9 +25,35 @@ function ready() {
         });
     }
 
+    // Add game tile event listeners.
+    function addGameTileListeners() {
+        gameTiles.forEach(tile => {
+            tile.addEventListener("click", selectTile);
+        });
+    }
+
+    // Player clicks on a tile.
+    function selectTile(e) {
+        let t = e.target;
+
+        // If tile is already selected, stop.
+        if (t.dataset.tile === tileSelected) return;
+    
+        // Deselect old tile.
+        if (tileSelected !== null) gameTiles[tileSelected].classList.remove("selected");
+
+        // Update game variable.
+        tileSelected = t.dataset.tile;
+
+        // Select new tile.
+        t.classList.add("selected");
+    }
+
     // Setup the game.
     function initGame() {
         setupGameTileIds();
+        addGameTileListeners();
+        gameTiles[0].click();
     }
 
     initGame();

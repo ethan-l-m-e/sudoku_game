@@ -26,3 +26,7 @@
     height: var(--game-tile-height);
     background-color: white;
 }
+
+.selected {
+    background-color: yellow;
+}
