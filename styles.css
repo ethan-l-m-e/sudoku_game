@@ -30,3 +30,11 @@
 .selected {
     background-color: yellow;
 }
+
+.prefilled {
+    background-color: lightgrey;
+}
+
+.selected.prefilled {
+    background-color: rgb(230, 197, 0);
+}
