@@ -79,7 +79,7 @@ function ready() {
 
         switch (e.key) {
             case "Backspace":
-                // TODO: Remove tile content if filled by player.
+                clearTile();
                 break;
             case "1": // Player enters a number from 1–9.
             case "2":
@@ -104,6 +104,16 @@ function ready() {
         if (currentTile.innerHTML === key) return;
 
         currentTile.innerHTML = key;
+    }
+
+    // Player presses backspace.
+    function clearTile() {
+        let currentTile = gameTiles[tileSelected];
+
+        // Tile is part of puzzle and cannot be cleared, or tile is already empty.
+        if (currentTile.classList.contains("prefilled") || currentTile.innerHTML == "") return;
+
+        currentTile.innerHTML = "";
     }
 
     // Fill in tiles based on current data.
