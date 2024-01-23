@@ -34,6 +34,7 @@ function ready() {
     // GAME VARIABLES.
     const gameTiles = document.querySelectorAll("div[data-tile]");
     let tileSelected = null;
+    let numFilledTiles = 0;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -104,7 +105,13 @@ function ready() {
         // Tile already has the same value.
         if (currentTile.innerHTML === key) return;
 
+        // Tile was empty.
+        if (currentTile.innerHTML === "") numFilledTiles++;
+
         currentTile.innerHTML = key;
+
+        // Board is filled.
+        if (numFilledTiles == 81) checkSolution();
     }
 
     // Player presses backspace.
@@ -114,6 +121,7 @@ function ready() {
         // Tile is part of puzzle and cannot be cleared, or tile is already empty.
         if (currentTile.classList.contains("prefilled") || currentTile.innerHTML == "") return;
 
+        numFilledTiles--;
         currentTile.innerHTML = "";
     }
 
@@ -128,10 +136,33 @@ function ready() {
                 if (row[i] !== 0) {
                     currentTile.innerHTML = String(row[i]);
                     currentTile.classList.add("prefilled"); // Class to identify initial tiles.
+                    numFilledTiles++;
                 }
             }
             row_count++;
         });
+    }
+
+    // Player has completed the puzzle.
+    function checkSolution() {
+        let found = true;
+        let row_count = 0;
+        board_solution.forEach(row => {
+            for (var i = 0; i < row.length; i++) {
+                let currentTile = gameTiles[i + (row_count * 9)];
+
+                if (currentTile.innerHTML != row[i]) {
+                    found = false;
+                }
+            }
+            row_count++;
+        });
+        
+        if (found) {
+            document.getElementById("game-status").innerHTML = "You Win!"
+        } else {
+            document.getElementById("game-status").innerHTML = "Wrong Answer!"
+        }
     }
 
     // Setup the game.
