@@ -44,7 +44,7 @@ function ready() {
         });
     }
 
-    // Add game tile event listeners.
+    // Handle player click on tile.
     function addGameTileListeners() {
         gameTiles.forEach(tile => {
             tile.addEventListener("click", selectTile);
