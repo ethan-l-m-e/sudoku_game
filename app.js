@@ -57,6 +57,15 @@ function ready() {
         document.addEventListener("keydown", onKeyDown);
     }
 
+    // Handle player marks a candidate.
+    function addCandidateListeners() {
+        Array.from(document.getElementsByClassName("candidate")).forEach(candidate => {
+            candidate.addEventListener("click", (e) => {
+                e.target.classList.toggle("marked");
+            });
+        });
+    }
+
     // Player clicks on a tile.
     function selectTile(e) {
         let t = e.target;
@@ -115,6 +124,10 @@ function ready() {
 
         currentTile.innerHTML = key;
 
+        if (!currentTile.classList.contains("guessed")) {
+            currentTile.classList.add("guessed");
+        }
+
         // Board is filled.
         if (numFilledTiles == 81) checkSolution();
     }
@@ -128,6 +141,7 @@ function ready() {
 
         numFilledTiles--;
         currentTile.innerHTML = "";
+        currentTile.classList.remove("guessed");
     }
 
     // Fill in tiles based on current data.
@@ -263,6 +277,7 @@ function ready() {
         gameTiles[0].click();
         populateGameBoard();
         addKeyboardListeners();
+        addCandidateListeners();
     }
 
     initGame();
