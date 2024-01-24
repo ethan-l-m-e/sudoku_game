@@ -96,6 +96,11 @@ function ready() {
             default:
                 // Do nothing.
         }
+
+        // Check if player inputs invalid value.
+        gameTiles.forEach(tile => {
+            checkConflict(tile.dataset.tile);
+        });
     }
 
     // Player presses a number from 1–9.
@@ -162,6 +167,54 @@ function ready() {
             document.getElementById("game-status").innerHTML = "You Win!"
         } else {
             document.getElementById("game-status").innerHTML = "Wrong Answer!"
+        }
+    }
+
+    // Player enters a number that conflicts with another tile.
+    function checkConflict(tileId) {
+        let tileToCheck = gameTiles[tileId];
+
+        // Look at row.
+        let row = Math.floor(tileId / 9);
+        for (var i = 0; i < 9; i++) {
+            let currentTile = gameTiles[(row * 9) + i];
+            let currentTileId = currentTile.dataset.tile;
+            
+            // Skip same tile as self.
+            if (currentTileId === tileId) { continue; }
+
+            // Conflict found.
+            if (currentTile.innerHTML === tileToCheck.innerHTML && tileToCheck.innerHTML !== "") {
+                if (!tileToCheck.classList.contains("conflicted")) {
+                    tileToCheck.classList.add("conflicted");
+                }
+                return; // Can stop checking.
+            }
+        }
+
+        // Look at column.
+        let col = tileId % 9;
+        for (var j = 0; j < 9; j++) {
+            let currentTile = gameTiles[(j * 9) + col];
+            let currentTileId = currentTile.dataset.tile;
+
+            //  Skip same tile as self.
+            if (currentTileId === tileId) { continue; }
+
+            // Conflict found.
+            if (currentTile.innerHTML === tileToCheck.innerHTML && tileToCheck.innerHTML !== "") {
+                if (!tileToCheck.classList.contains("conflicted")) {
+                    tileToCheck.classList.add("conflicted");
+                }
+                return; // Can stop checking.
+            }
+        }
+        
+        // Look at 3x3 grid.
+        
+        // No conflicts were found.
+        if (tileToCheck.classList.contains("conflicted")) {
+            tileToCheck.classList.remove("conflicted");
         }
     }
 
