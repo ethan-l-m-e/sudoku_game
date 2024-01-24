@@ -173,7 +173,17 @@ function ready() {
         let currentTile = gameTiles[tileSelected];
 
         // Tile is part of puzzle and cannot be cleared, or tile is already empty.
-        if (currentTile.classList.contains("prefilled") || currentTile.innerHTML == "") return;
+        if (currentTile.classList.contains("prefilled")) return;
+
+        // Tile was empty.
+        if (currentTile.innerHTML === "") {
+            let siblingCandidateTile = currentTile.nextElementSibling;
+            Array.from(siblingCandidateTile.children).forEach((candidateTile) => {
+                if (candidateTile.classList.contains("marked")) {
+                    candidateTile.classList.remove("marked");
+                }
+            });
+        }
 
         numFilledTiles--;
         currentTile.innerHTML = "";
