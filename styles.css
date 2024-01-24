@@ -28,6 +28,7 @@
     line-height: var(--game-tile-height);
     font-weight: bolder;
     font-size: xx-large;
+    position: relative;
 }
 
 .selected {
@@ -40,4 +41,16 @@
 
 .selected.prefilled {
     background-color: rgb(230, 197, 0);
+}
+
+.game-tile.conflicted::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    display: block;
 }
