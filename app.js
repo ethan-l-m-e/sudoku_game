@@ -83,6 +83,33 @@ function ready() {
         t.classList.add("selected");
     }
 
+    // Player presses the arrow keys.
+    function moveSelection(key) {
+        let currentTile = Number(tileSelected);
+        let row = Math.floor(currentTile / 9);
+        let col = currentTile % 9;
+        switch (key) {
+            case "ArrowLeft":
+                if (col === 0) { return; }
+                gameTiles[currentTile - 1].click();
+                break;
+            case "ArrowUp":
+                if (row === 0) { return; }
+                gameTiles[currentTile - 9].click();
+                break;
+            case "ArrowRight":
+                if (col === 8) { return; }
+                gameTiles[currentTile + 1].click();
+                break;
+            case "ArrowDown":
+                if (row === 8) { return; }
+                gameTiles[currentTile + 9].click();
+                break;
+            default:
+                return;
+        }
+    }
+
     // Player presses the keyboard.
     function onKeyDown(e) {
         e.preventDefault(); // WARNING: disables browser shortcuts.
@@ -90,6 +117,10 @@ function ready() {
         switch (e.key) {
             case "Backspace":
                 clearTile();
+                // Check if player inputs invalid value.
+                gameTiles.forEach(tile => {
+                    checkConflict(tile.dataset.tile);
+                });
                 break;
             case "1": // Player enters a number from 1–9.
             case "2":
@@ -101,15 +132,21 @@ function ready() {
             case "8":
             case "9":
                 setTile(e.key);
+                // Check if player inputs invalid value.
+                gameTiles.forEach(tile => {
+                    checkConflict(tile.dataset.tile);
+                });
+                break;
+            case "ArrowLeft":
+            case "ArrowUp":
+            case "ArrowRight":
+            case "ArrowDown":
+                console.log("Moved");
+                moveSelection(e.key);
                 break;
             default:
                 // Do nothing.
         }
-
-        // Check if player inputs invalid value.
-        gameTiles.forEach(tile => {
-            checkConflict(tile.dataset.tile);
-        });
     }
 
     // Player presses a number from 1–9.
