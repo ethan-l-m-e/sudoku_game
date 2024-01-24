@@ -175,7 +175,7 @@ function ready() {
         let tileToCheck = gameTiles[tileId];
 
         // Look at row.
-        let row = Math.floor(tileId / 9);
+        const row = Math.floor(tileId / 9);
         for (var i = 0; i < 9; i++) {
             let currentTile = gameTiles[(row * 9) + i];
             let currentTileId = currentTile.dataset.tile;
@@ -193,7 +193,7 @@ function ready() {
         }
 
         // Look at column.
-        let col = tileId % 9;
+        const col = tileId % 9;
         for (var j = 0; j < 9; j++) {
             let currentTile = gameTiles[(j * 9) + col];
             let currentTileId = currentTile.dataset.tile;
@@ -210,7 +210,45 @@ function ready() {
             }
         }
         
-        // Look at 3x3 grid.
+        // Look at 3x3 subGrid.
+        let subGridRow = 0;
+        let subGridCol = 0;
+        
+        // Find the top left tile of the subGrid.
+        if (row < 3) {
+            subGridRow = 0; // Top row.
+        } else if (row < 6) {
+            subGridRow = 3; // Middle row.
+        } else {
+            subGridRow = 6; // Bottom row.
+        }
+        if (col < 3) { 
+            subGridCol = 0; // Left column. 
+        } else if (col < 6) {
+            subGridCol = 3; // Middle column.
+        } else {
+            subGridCol = 6; // Right column.
+        }
+
+        // Look through all tiles in the subGrid.
+        for (var r = subGridRow; r < (subGridRow + 3); r++) {
+            for (var c = subGridCol; c < (subGridCol + 3); c++) {
+                let currentTile = gameTiles[(r * 9) + c];
+                let currentTileId = currentTile.dataset.tile;
+            
+                // Skip same tile as self.
+                if (currentTileId === tileId) { continue; }
+
+                // Conflict found.
+                if (currentTile.innerHTML === tileToCheck.innerHTML && tileToCheck.innerHTML !== "") {
+                    if (!tileToCheck.classList.contains("conflicted")) {
+                        tileToCheck.classList.add("conflicted");
+                    }
+                    return; // Can stop checking.
+                }
+            }
+        }
+
         
         // No conflicts were found.
         if (tileToCheck.classList.contains("conflicted")) {
