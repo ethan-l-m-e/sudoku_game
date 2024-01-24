@@ -141,7 +141,6 @@ function ready() {
             case "ArrowUp":
             case "ArrowRight":
             case "ArrowDown":
-                console.log("Moved");
                 moveSelection(e.key);
                 break;
             default:
