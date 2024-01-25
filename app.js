@@ -145,8 +145,6 @@ function ready() {
             case "ArrowDown":
                 moveSelection(e.key);
                 break;
-            case "m":
-                clearBoard();
             default:
                 // Do nothing.
         }
