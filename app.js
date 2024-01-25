@@ -68,6 +68,37 @@ function ready() {
         });
     }
 
+    // Handle player clicks on game UI.
+    function addUiListeners() {
+        document.getElementById("medium-difficulty-button").addEventListener("click", () => {
+            clearBoard();
+            requestPuzzle("Medium");
+            swapScreens("game-container");
+        });
+        document.getElementById("hard-difficulty-button").addEventListener("click", () => {
+            clearBoard();
+            requestPuzzle("Hard");
+            swapScreens("game-container");
+        });
+        document.getElementById("back-button").addEventListener("click", () => {
+            swapScreens("menu-container");
+        });
+    }
+
+    // Game changes the rendered screen.
+    function swapScreens(screenName) {
+        let screens = Array.from(document.getElementsByClassName("screen"));
+        screens.forEach((screen) => {
+            if (screen.classList.contains(screenName)) {
+                if (!screen.classList.contains("rendering")) {
+                    screen.classList.add("rendering");
+                }
+            } else {
+                screen.classList.remove("rendering");
+            }
+        });
+    }
+
     // Player clicks on a tile.
     function selectTile(e) {
         let t = e.target;
@@ -345,6 +376,19 @@ function ready() {
         }
     }
 
+    // Tear down.
+    function clearBoard() {
+        gameTiles.forEach((tile) => {
+            tile.classList.remove("prefilled");
+            tile.classList.remove("guessed");
+            tile.classList.remove("conflicted");
+            tile.innerHTML = "";
+        });
+        Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
+            candidateTile.classList.remove("marked");
+        });
+    }
+
     // Setup the game.
     function initGame() {
         setupGameTileIds();
@@ -352,57 +396,8 @@ function ready() {
         gameTiles[0].click();
         addKeyboardListeners();
         addCandidateListeners();
+        addUiListeners();
     }
 
     initGame();
-
-    // Tear down.
-    function clearBoard() {
-        gameTiles.forEach((tile) => {
-            if (tile.classList.contains("prefilled")) {
-                tile.classList.remove("prefilled");
-            }
-            if (tile.classList.contains("guessed")) {
-                tile.classList.remove("guessed");
-            }
-            if (tile.classList.contains("conflicted")) {
-                tile.classList.remove("conflicted");
-            }
-            tile.innerHTML = "";
-        });
-        Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
-            if (candidateTile.classList.contains("marked")) {
-                candidateTile.classList.remove("marked");
-            }
-        });
-    }
-
-    // Player interacts with the menu buttons.
-    function addUiListeners() {
-        document.getElementById("medium-difficulty-button").addEventListener("click", () => {
-            if (!document.getElementById("game-container").classList.contains("rendering")) {
-                document.getElementById("game-container").classList.add("rendering");
-            }
-            document.getElementById("menu-container").classList.remove("rendering");
-            clearBoard();
-            requestPuzzle("Medium");
-        });
-        document.getElementById("hard-difficulty-button").addEventListener("click", () => {
-            if (!document.getElementById("game-container").classList.contains("rendering")) {
-                document.getElementById("game-container").classList.add("rendering");
-            }
-            document.getElementById("menu-container").classList.remove("rendering");
-            clearBoard();
-            requestPuzzle("Hard");
-        });
-        document.getElementById("back-button").addEventListener("click", () => {
-            if (!document.getElementById("menu-container").classList.contains("rendering")) {
-                document.getElementById("menu-container").classList.add("rendering");
-            }
-            document.getElementById("game-container").classList.remove("rendering");
-        });
-    }
-
-    addUiListeners();
 }
-
