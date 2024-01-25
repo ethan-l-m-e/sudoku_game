@@ -1,5 +1,5 @@
 // Test board and solution.
-const board_data = [
+const test_board_data_medium = [
     [0,8,0,5,0,0,6,7,0],
     [0,7,0,0,0,0,4,5,0],
     [0,0,0,8,0,0,3,0,0],
@@ -10,7 +10,7 @@ const board_data = [
     [0,0,0,3,0,0,0,0,0],
     [0,2,0,0,0,8,0,0,0]];
 
-const board_solution = [
+const test_board_solution_medium = [
     [3,8,4,5,9,1,6,7,2],
     [9,7,1,6,3,2,4,5,8],
     [2,5,6,8,4,7,3,9,1],
@@ -35,6 +35,8 @@ function ready() {
     const gameTiles = document.querySelectorAll("div[data-tile]");
     let tileSelected = null;
     let numFilledTiles = 0;
+    let currentBoard = null;
+    let currentSolution = null;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -143,6 +145,8 @@ function ready() {
             case "ArrowDown":
                 moveSelection(e.key);
                 break;
+            case "m":
+                clearBoard();
             default:
                 // Do nothing.
         }
@@ -165,7 +169,7 @@ function ready() {
         }
 
         // Board is filled.
-        if (numFilledTiles == 81) checkSolution();
+        if (numFilledTiles == 81) checkSolution(currentSolution);
     }
 
     // Player presses backspace.
@@ -190,10 +194,35 @@ function ready() {
         currentTile.classList.remove("guessed");
     }
 
+    // Call to external api.
+    function requestPuzzle(difficulty) {
+        async function api() {
+            const url = 'https://sudoku-api.vercel.app/api/dosuku';
+            var result;
+            do {
+                const response = await fetch(url);
+                result = await response.json();
+            } while (result.newboard.grids[0].difficulty !== difficulty);
+            return result;
+        }
+
+        api().then((result) => {
+            currentBoard = result.newboard.grids[0].value;
+            currentSolution = result.newboard.grids[0].solution;
+            console.log(currentSolution);
+            populateGameBoard(currentBoard);
+        }).catch(error => {
+            console.log(error)
+            currentBoard = test_board_data_medium;
+            currentSolution = test_board_solution_medium;
+            populateGameBoard(currentBoard);
+        });
+    }
+
     // Fill in tiles based on current data.
-    function populateGameBoard() {
+    function populateGameBoard(board) {
         let row_count = 0;
-        board_data.forEach(row => {
+        board.forEach(row => {
             for (var i = 0; i < row.length; i++) {
                 let currentTile = gameTiles[i + (row_count * 9)];
 
@@ -209,10 +238,10 @@ function ready() {
     }
 
     // Player has completed the puzzle.
-    function checkSolution() {
+    function checkSolution(solution) {
         let found = true;
         let row_count = 0;
-        board_solution.forEach(row => {
+        solution.forEach(row => {
             for (var i = 0; i < row.length; i++) {
                 let currentTile = gameTiles[i + (row_count * 9)];
 
@@ -320,25 +349,50 @@ function ready() {
         setupGameTileIds();
         addGameTileListeners();
         gameTiles[0].click();
-        populateGameBoard();
         addKeyboardListeners();
         addCandidateListeners();
     }
 
     initGame();
 
+    // Tear down.
+    function clearBoard() {
+        gameTiles.forEach((tile) => {
+            if (tile.classList.contains("prefilled")) {
+                tile.classList.remove("prefilled");
+            }
+            if (tile.classList.contains("guessed")) {
+                tile.classList.remove("guessed");
+            }
+            if (tile.classList.contains("conflicted")) {
+                tile.classList.remove("conflicted");
+            }
+            tile.innerHTML = "";
+        });
+        Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
+            if (candidateTile.classList.contains("marked")) {
+                candidateTile.classList.remove("marked");
+            }
+        });
+    }
+
+    // Player interacts with the menu buttons.
     function addUiListeners() {
         document.getElementById("medium-difficulty-button").addEventListener("click", () => {
             if (!document.getElementById("game-container").classList.contains("rendering")) {
                 document.getElementById("game-container").classList.add("rendering");
             }
             document.getElementById("menu-container").classList.remove("rendering");
+            clearBoard();
+            requestPuzzle("Medium");
         });
         document.getElementById("hard-difficulty-button").addEventListener("click", () => {
             if (!document.getElementById("game-container").classList.contains("rendering")) {
                 document.getElementById("game-container").classList.add("rendering");
             }
             document.getElementById("menu-container").classList.remove("rendering");
+            clearBoard();
+            requestPuzzle("Hard");
         });
         document.getElementById("back-button").addEventListener("click", () => {
             if (!document.getElementById("menu-container").classList.contains("rendering")) {
