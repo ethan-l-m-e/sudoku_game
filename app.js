@@ -71,14 +71,10 @@ function ready() {
     // Handle player clicks on game UI.
     function addUiListeners() {
         document.getElementById("medium-difficulty-button").addEventListener("click", () => {
-            clearBoard();
-            requestPuzzle("Medium");
-            swapScreens("game-container");
+            playGame("Medium")
         });
         document.getElementById("hard-difficulty-button").addEventListener("click", () => {
-            clearBoard();
-            requestPuzzle("Hard");
-            swapScreens("game-container");
+            playGame("Hard")
         });
         document.getElementById("back-button").addEventListener("click", () => {
             swapScreens("menu-container");
@@ -242,11 +238,13 @@ function ready() {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
             populateGameBoard(currentBoard);
+            swapScreens("game-container");
         }).catch(error => {
             console.log(error)
             currentBoard = test_board_data_medium;
             currentSolution = test_board_solution_medium;
             populateGameBoard(currentBoard);
+            swapScreens("game-container");
         });
     }
 
@@ -373,6 +371,13 @@ function ready() {
         if (tileToCheck.classList.contains("conflicted")) {
             tileToCheck.classList.remove("conflicted");
         }
+    }
+    
+    // Player begins a game.
+    function playGame(difficulty) {
+        clearBoard();
+        requestPuzzle(difficulty);
+        swapScreens("loading-screen");
     }
 
     // Tear down.

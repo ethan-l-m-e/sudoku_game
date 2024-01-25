@@ -143,9 +143,16 @@
     color: white;
 }
 
+.loading-screen {
+    height: 90vh;
+    line-height: 90vh;
+    text-align: center;
+}
+
 /* hide screens when not rendering */
 .menu-container,
-.game-container {
+.game-container,
+.loading-screen {
     display: none;
 }
 
