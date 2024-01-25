@@ -156,6 +156,9 @@ function ready() {
     function setTile(key) {
         let currentTile = gameTiles[tileSelected];
 
+        // Tile is part of puzzle.
+        if (currentTile.classList.contains("prefilled")) return;
+
         // Tile already has the same value.
         if (currentTile.innerHTML === key) return;
 
