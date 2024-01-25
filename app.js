@@ -241,7 +241,6 @@ function ready() {
         api().then((result) => {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
-            console.log(currentSolution);
             populateGameBoard(currentBoard);
         }).catch(error => {
             console.log(error)
