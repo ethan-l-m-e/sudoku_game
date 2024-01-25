@@ -110,3 +110,45 @@
 .selected~.game-tile-button {
     display: none;
 }
+
+.back-button {
+    text-align: center;
+    display: block;
+    width: 60px;
+    height: 30px;
+}
+
+.menu-container {
+    text-align: center;
+    margin-top: 20vh;
+}
+
+.menu-header {
+    font-size: xxx-large;
+}
+
+.menu-subheading {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.menu-button{
+    display: block;
+    margin: 0 auto 8px auto;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+}
+
+/* hide screens when not rendering */
+.menu-container,
+.game-container {
+    display: none;
+}
+
+.rendering {
+    display: block;
+}

@@ -309,7 +309,6 @@ function ready() {
             }
         }
 
-        
         // No conflicts were found.
         if (tileToCheck.classList.contains("conflicted")) {
             tileToCheck.classList.remove("conflicted");
@@ -327,5 +326,28 @@ function ready() {
     }
 
     initGame();
+
+    function addUiListeners() {
+        document.getElementById("medium-difficulty-button").addEventListener("click", () => {
+            if (!document.getElementById("game-container").classList.contains("rendering")) {
+                document.getElementById("game-container").classList.add("rendering");
+            }
+            document.getElementById("menu-container").classList.remove("rendering");
+        });
+        document.getElementById("hard-difficulty-button").addEventListener("click", () => {
+            if (!document.getElementById("game-container").classList.contains("rendering")) {
+                document.getElementById("game-container").classList.add("rendering");
+            }
+            document.getElementById("menu-container").classList.remove("rendering");
+        });
+        document.getElementById("back-button").addEventListener("click", () => {
+            if (!document.getElementById("menu-container").classList.contains("rendering")) {
+                document.getElementById("menu-container").classList.add("rendering");
+            }
+            document.getElementById("game-container").classList.remove("rendering");
+        });
+    }
+
+    addUiListeners();
 }
 
