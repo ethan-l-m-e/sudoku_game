@@ -20,6 +20,7 @@
     gap: 1px;
     background-color: grey;
     border: 5px solid black;
+    margin-top: 20px;
 }
 
 .game-tile-container {
@@ -111,11 +112,42 @@
     display: none;
 }
 
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    font-size: 18px;
+}
+
+.toolbar-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.toolbar-button {
+    border: none;
+    background: none;
+    font-size: 25px;
+    padding: 0 10px;
+}
+
+.display-difficulty,
+.display-timer {
+    margin: 0 16px;
+}
+
 .back-button {
-    text-align: center;
-    display: block;
-    width: 60px;
-    height: 30px;
+    font-size: 16px;
 }
 
 .menu-container {

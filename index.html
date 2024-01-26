@@ -16,7 +16,19 @@
         </div>
         <div class="loading-screen screen">Loading...</div>
         <div class="game-container screen" id="game-container">
-            <button type="button" id="back-button" class="back-button">Back</button>
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <button type="button" id="back-button" class="back-button toolbar-button">&lt; Back</button>
+                </div>
+                <div class="toolbar-center">
+                    <div class="display-difficulty">Medium</div>
+                    <div class="display-timer">4:05 &#9208;</div>
+                </div>
+                <div class="toolbar-right">
+                    <div class="toolbar-dropdown toolbar-button">&#x22EF;</div>
+                    <button type="button" class="toolbar-button">&#9881;</button>
+                </div>
+            </div>
             <div id="game-board" class="game-board">
                 <div class="game-tile-container">
                     <div class="game-tile" data-tile="-1"></div>
