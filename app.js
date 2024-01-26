@@ -37,6 +37,7 @@ function ready() {
     let numFilledTiles = 0;
     let currentBoard = null;
     let currentSolution = null;
+    let currentPlayDifficulty = null;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -237,12 +238,14 @@ function ready() {
         api().then((result) => {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
+            currentPlayDifficulty = result.newboard.grids[0].difficulty;
             populateGameBoard(currentBoard);
             swapScreens("game-container");
         }).catch(error => {
             console.log(error)
             currentBoard = test_board_data_medium;
             currentSolution = test_board_solution_medium;
+            currentPlayDifficulty = difficulty;
             populateGameBoard(currentBoard);
             swapScreens("game-container");
         });
@@ -283,6 +286,7 @@ function ready() {
         
         if (found) {
             document.getElementById("game-status").innerHTML = "You Win!"
+            gameOver();
         } else {
             document.getElementById("game-status").innerHTML = "Wrong Answer!"
         }
@@ -372,12 +376,22 @@ function ready() {
             tileToCheck.classList.remove("conflicted");
         }
     }
-    
+
     // Player begins a game.
     function playGame(difficulty) {
-        clearBoard();
-        requestPuzzle(difficulty);
-        swapScreens("loading-screen");
+        // Player returns to existing game.
+        if (currentPlayDifficulty !== difficulty) {
+            clearBoard();
+            requestPuzzle(difficulty);
+            swapScreens("loading-screen");
+        } else {
+            swapScreens("game-container");
+        }
+    }
+
+    // Puzzle is solved.
+    function gameOver() {
+        currentPlayDifficulty = null;
     }
 
     // Tear down.
@@ -391,6 +405,7 @@ function ready() {
         Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
             candidateTile.classList.remove("marked");
         });
+        document.getElementById("game-status").innerHTML = "";
     }
 
     // Setup the game.
