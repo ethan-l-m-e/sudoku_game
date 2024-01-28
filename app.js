@@ -464,6 +464,7 @@ function ready() {
             candidateTile.classList.remove("marked");
         });
         document.getElementById("game-status").innerHTML = "";
+        document.getElementById("display-timer").innerHTML = "";
     }
 
     // Setup the game.
