@@ -83,6 +83,14 @@ function ready() {
             swapScreens("menu-container");
             stopTimer();
         });
+        document.getElementById("pause-button").addEventListener("click", () => {
+            toggleOverlay("pause-overlay");
+            stopTimer();
+        });
+        document.getElementById("resume-button").addEventListener("click", () => {
+            toggleOverlay("pause-overlay");
+            startTimer();
+        });
     }
 
     // Game changes the rendered screen.
@@ -97,6 +105,11 @@ function ready() {
                 screen.classList.remove("rendering");
             }
         });
+    }
+
+    // When player clicks UI buttons.
+    function toggleOverlay(overlay) {
+        document.getElementById(overlay).classList.toggle("shown");
     }
 
     // Player clicks on a tile.

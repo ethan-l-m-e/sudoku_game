@@ -23,7 +23,7 @@
                 <div class="toolbar-center">
                     <div class="display-difficulty">Medium</div>
                     <div class="display-timer" id="display-timer"></div>
-                    <div>&#9208;</div>
+                    <div id="pause-button">&#9208;</div>
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-dropdown toolbar-button">&#x22EF;</div>
@@ -1247,6 +1247,17 @@
                 </div>
             </div>
             <div id="game-status"></div>
+            <div class="overlays">
+                <div class="pause-overlay overlay-wrapper" id="pause-overlay">
+                    <div class="overlay-background"></div>
+                    <div class="overlay-card">
+                        <div class="overlay-card-content">
+                            <div class="overlay-message">Your game has been paused</div>
+                            <button type="button" id="resume-button" class="menu-button">Resume</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
