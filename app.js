@@ -238,23 +238,24 @@ function ready() {
             return result;
         }
 
+        // Async request has finished.
+        function proceedToGame() {
+            populateGameBoard(currentBoard);
+            swapScreens("game-container");
+            startTimer();
+        }
+
         api().then((result) => {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
             currentPlayDifficulty = result.newboard.grids[0].difficulty;
-            populateGameBoard(currentBoard);
-            swapScreens("game-container");
-            // Keep track of time played.
-            startTimer();
+            proceedToGame();
         }).catch(error => {
             console.log(error)
             currentBoard = test_board_data_medium;
             currentSolution = test_board_solution_medium;
             currentPlayDifficulty = difficulty;
-            populateGameBoard(currentBoard);
-            swapScreens("game-container");
-            // Keep track of time played.
-            startTimer();
+            proceedToGame();
         });
     }
 
