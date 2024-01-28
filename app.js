@@ -91,6 +91,17 @@ function ready() {
             toggleOverlay("pause-overlay");
             startTimer();
         });
+        Array.from(document.getElementsByClassName("close-button")).forEach((x) => {
+            x.addEventListener("click", () => {
+                x.parentElement.parentElement.classList.toggle("shown");
+            });
+            
+        });
+        Array.from(document.getElementsByClassName("clickable")).forEach((x) => {
+            x.addEventListener("click", () => {
+                x.parentElement.classList.toggle("shown");
+            });
+        });
     }
 
     // Game changes the rendered screen.
@@ -305,13 +316,7 @@ function ready() {
             }
             row_count++;
         });
-        
-        if (found) {
-            document.getElementById("game-status").innerHTML = "You Win!"
-            gameOver();
-        } else {
-            document.getElementById("game-status").innerHTML = "Wrong Answer!"
-        }
+        if (found) gameOver();
     }
 
     // Player enters a number that conflicts with another tile.
@@ -412,8 +417,24 @@ function ready() {
 
     // A second of time passes.
     function updateTimer() {
-        // Append zero.
-        function formatTime(time) {
+        let h = currentGameTime.hours;
+        let m = currentGameTime.minutes;
+        let s = currentGameTime.seconds;
+        s++;
+        if (s >= 60) { m++; s = 0; } // Carry over to minutes.
+        if (m >= 60) { h++; m = 0; } // Carry over to hour.
+        // Update game variable.
+        currentGameTime.seconds = s;
+        currentGameTime.minutes = m;
+        currentGameTime.hours = h;
+        // Show the time on screen.
+        document.getElementById("display-timer").innerHTML = getTime();
+    }
+
+    // Current time played.
+    function getTime() {
+         // Append zero.
+         function formatTime(time) {
             if (time < 10) {
                 return "0" + time;
             }
@@ -422,16 +443,7 @@ function ready() {
         let h = currentGameTime.hours;
         let m = currentGameTime.minutes;
         let s = currentGameTime.seconds;
-        s++;
-        if (s >= 60) { m++; s = 0; } // Carry over to minutes.
-        if (m >= 60) { h++; m = 0; } // Carry over to hour.
-        // Show the time on screen.
-        document.getElementById("display-timer").innerHTML = 
-            `${h}:${formatTime(m)}:${formatTime(s)}`;
-        // Update game variable.
-        currentGameTime.seconds = s;
-        currentGameTime.minutes = m;
-        currentGameTime.hours = h;
+        return `${h}:${formatTime(m)}:${formatTime(s)}`;
     }
 
     // Player left the game screen.
@@ -462,8 +474,20 @@ function ready() {
 
     // Puzzle is solved.
     function gameOver() {
-        currentPlayDifficulty = null;
         stopTimer();
+        showWinningMessage();
+        currentPlayDifficulty = null;
+    }
+
+    // Displays the game stats.
+    function showWinningMessage() {
+        let a = "an"; // Use 'an' for 'an Easy'
+        if (currentPlayDifficulty === "Medium" || currentPlayDifficulty === "Hard") {
+            a = "a"
+        }
+        document.getElementById("winning-message").innerHTML = 
+            `You finished ${a} ${currentPlayDifficulty} puzzle in ${getTime()}.`;
+        toggleOverlay("win-overlay");
     }
 
     // Tear down.
@@ -477,7 +501,6 @@ function ready() {
         Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
             candidateTile.classList.remove("marked");
         });
-        document.getElementById("game-status").innerHTML = "";
         document.getElementById("display-timer").innerHTML = "0:00:00";
     }
 

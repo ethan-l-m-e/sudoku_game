@@ -1246,7 +1246,6 @@
                     </div>
                 </div>
             </div>
-            <div id="game-status"></div>
             <div class="overlays">
                 <div class="pause-overlay overlay-wrapper" id="pause-overlay">
                     <div class="overlay-background"></div>
@@ -1254,6 +1253,20 @@
                         <div class="overlay-card-content">
                             <div class="overlay-message">Your game has been paused</div>
                             <button type="button" id="resume-button" class="menu-button">Resume</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gameover-overlay overlay-wrapper" id="win-overlay">
+                    <div class="overlay-background clickable"></div>
+                    <div class="overlay-card">
+                        <div class="close-button">&#10005;</div>
+                        <div class="overlay-card-content">
+                            <div class="star">&#10026;</div>
+                            <div class="overlay-header">Congrats!</div>
+                            <div class="overlay-message" id="winning-message">
+                                You finished an <span>easy</span> puzzle in <span>1:06</span>.
+                            </div>
+                            <button type="button" id="continue-button" class="menu-button">Play another Sudoku</button>
                         </div>
                     </div>
                 </div>
