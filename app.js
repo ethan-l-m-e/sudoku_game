@@ -81,6 +81,7 @@ function ready() {
         });
         document.getElementById("back-button").addEventListener("click", () => {
             swapScreens("menu-container");
+            stopTimer();
         });
     }
 
@@ -241,6 +242,7 @@ function ready() {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
             currentPlayDifficulty = result.newboard.grids[0].difficulty;
+            console.log(currentSolution);
             populateGameBoard(currentBoard);
             swapScreens("game-container");
         }).catch(error => {
@@ -414,6 +416,11 @@ function ready() {
         currentGameTime.hours = h;
     }
 
+    // Player left the game screen.
+    function stopTimer() {
+        window.clearInterval(myPauseTimerFunction);
+    }
+
     // Player begins a game.
     function playGame(difficulty) {
         // Player returns to existing game.
@@ -431,6 +438,7 @@ function ready() {
     // Puzzle is solved.
     function gameOver() {
         currentPlayDifficulty = null;
+        stopTimer();
     }
 
     // Tear down.
