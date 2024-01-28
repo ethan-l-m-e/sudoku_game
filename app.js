@@ -38,6 +38,8 @@ function ready() {
     let currentBoard = null;
     let currentSolution = null;
     let currentPlayDifficulty = null;
+    let currentGameTime = { hours: 0, minutes: 0, seconds: 0 };
+    let myPauseTimerFunction;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -377,6 +379,41 @@ function ready() {
         }
     }
 
+    // Player starts or resumes playing.
+    function startTimer() {
+        // Update time:
+        // Add to s every 1000ms.
+        // Add to m when s becomes 60, set s to 0
+        // Add to h when m becomes 60, set m to 0
+        // Show the time on screen.
+        // TODO: Stop updating time when player leaves game / or when paused:
+        myPauseTimerFunction = setInterval(updateTimer, 1000);
+    }
+
+    // A second of time passes.
+    function updateTimer() {
+        // Append zero.
+        function formatTime(time) {
+            if (time < 10) {
+                return "0" + time;
+            }
+            return time;
+        }
+        let h = currentGameTime.hours;
+        let m = currentGameTime.minutes;
+        let s = currentGameTime.seconds;
+        s++;
+        if (s >= 60) { m++; s = 0; } // Carry over to minutes.
+        if (m >= 60) { h++; m = 0; } // Carry over to hour.
+        // Show the time on screen.
+        document.getElementById("display-timer").innerHTML = 
+            `${h}:${formatTime(m)}:${formatTime(s)}`;
+        // Update game variable.
+        currentGameTime.seconds = s;
+        currentGameTime.minutes = m;
+        currentGameTime.hours = h;
+    }
+
     // Player begins a game.
     function playGame(difficulty) {
         // Player returns to existing game.
@@ -387,6 +424,8 @@ function ready() {
         } else {
             swapScreens("game-container");
         }
+        // Keep track of time played.
+        startTimer();
     }
 
     // Puzzle is solved.
