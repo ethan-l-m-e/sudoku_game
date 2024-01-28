@@ -242,9 +242,10 @@ function ready() {
             currentBoard = result.newboard.grids[0].value;
             currentSolution = result.newboard.grids[0].solution;
             currentPlayDifficulty = result.newboard.grids[0].difficulty;
-            console.log(currentSolution);
             populateGameBoard(currentBoard);
             swapScreens("game-container");
+            // Keep track of time played.
+            startTimer();
         }).catch(error => {
             console.log(error)
             currentBoard = test_board_data_medium;
@@ -252,6 +253,8 @@ function ready() {
             currentPlayDifficulty = difficulty;
             populateGameBoard(currentBoard);
             swapScreens("game-container");
+            // Keep track of time played.
+            startTimer();
         });
     }
 
@@ -421,6 +424,13 @@ function ready() {
         window.clearInterval(myPauseTimerFunction);
     }
 
+    // New timer for new game.
+    function resetTimer() {
+        currentGameTime.seconds = 0;
+        currentGameTime.minutes = 0;
+        currentGameTime.hours = 0;
+    }
+
     // Player begins a game.
     function playGame(difficulty) {
         // Player returns to existing game.
@@ -428,11 +438,10 @@ function ready() {
             clearBoard();
             requestPuzzle(difficulty);
             swapScreens("loading-screen");
+            resetTimer();
         } else {
             swapScreens("game-container");
         }
-        // Keep track of time played.
-        startTimer();
     }
 
     // Puzzle is solved.
