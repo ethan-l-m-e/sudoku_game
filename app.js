@@ -40,6 +40,7 @@ function ready() {
     let currentPlayDifficulty = null;
     let currentGameTime = { hours: 0, minutes: 0, seconds: 0 };
     let myPauseTimerFunction;
+    let acceptInput = false;
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -125,6 +126,8 @@ function ready() {
 
     // Player clicks on a tile.
     function selectTile(e) {
+        if (!acceptInput) return;
+
         let t = e.target;
 
         // If tile is already selected, stop.
@@ -170,6 +173,8 @@ function ready() {
     // Player presses the keyboard.
     function onKeyDown(e) {
         e.preventDefault(); // WARNING: disables browser shortcuts.
+
+        if (!acceptInput) return;
 
         switch (e.key) {
             case "Backspace":
@@ -464,6 +469,8 @@ function ready() {
             startTimer();
             swapScreens("game-container");
         }
+        acceptInput = true;
+        gameTiles[0].click();
     }
 
     // Puzzle is solved.
@@ -471,6 +478,7 @@ function ready() {
         stopTimer();
         showWinningMessage();
         currentPlayDifficulty = null;
+        acceptInput = false;
     }
 
     // Displays the game stats.
@@ -490,6 +498,7 @@ function ready() {
             tile.classList.remove("prefilled");
             tile.classList.remove("guessed");
             tile.classList.remove("conflicted");
+            tile.classList.remove("selected")
             tile.innerHTML = "";
         });
         Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
@@ -503,7 +512,6 @@ function ready() {
     function initGame() {
         setupGameTileIds();
         addGameTileListeners();
-        gameTiles[0].click();
         addKeyboardListeners();
         addCandidateListeners();
         addUiListeners();
