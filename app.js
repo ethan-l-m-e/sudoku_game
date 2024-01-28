@@ -436,11 +436,12 @@ function ready() {
     function playGame(difficulty) {
         // Player returns to existing game.
         if (currentPlayDifficulty !== difficulty) {
+            resetTimer();
             clearBoard();
             requestPuzzle(difficulty);
             swapScreens("loading-screen");
-            resetTimer();
         } else {
+            startTimer();
             swapScreens("game-container");
         }
     }
