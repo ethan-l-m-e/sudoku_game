@@ -174,10 +174,6 @@ function ready() {
         switch (e.key) {
             case "Backspace":
                 clearTile();
-                // Check if player inputs invalid value.
-                gameTiles.forEach(tile => {
-                    checkConflict(tile.dataset.tile);
-                });
                 break;
             case "1": // Player enters a number from 1–9.
             case "2":
@@ -189,10 +185,6 @@ function ready() {
             case "8":
             case "9":
                 setTile(e.key);
-                // Check if player inputs invalid value.
-                gameTiles.forEach(tile => {
-                    checkConflict(tile.dataset.tile);
-                });
                 break;
             case "ArrowLeft":
             case "ArrowUp":
@@ -224,8 +216,13 @@ function ready() {
             currentTile.classList.add("guessed");
         }
 
+        // Check if player inputted invalid value.
+        gameTiles.forEach(tile => {
+            checkConflict(tile.dataset.tile);
+        });
+
         // Board is filled.
-        if (numFilledTiles == 81) checkSolution(currentSolution);
+        if (numFilledTiles == 81) checkSolution();
     }
 
     // Player presses backspace.
@@ -248,6 +245,11 @@ function ready() {
         numFilledTiles--;
         currentTile.innerHTML = "";
         currentTile.classList.remove("guessed");
+
+        // Update conflicts
+        gameTiles.forEach(tile => {
+            checkConflict(tile.dataset.tile);
+        });
     }
 
     // Call to external api.
@@ -303,18 +305,10 @@ function ready() {
     }
 
     // Player has completed the puzzle.
-    function checkSolution(solution) {
+    function checkSolution() {
         let found = true;
-        let row_count = 0;
-        solution.forEach(row => {
-            for (var i = 0; i < row.length; i++) {
-                let currentTile = gameTiles[i + (row_count * 9)];
-
-                if (currentTile.innerHTML != row[i]) {
-                    found = false;
-                }
-            }
-            row_count++;
+        gameTiles.forEach(tile => {
+            if (tile.classList.contains("conflicted")) found = false;
         });
         if (found) gameOver();
     }
