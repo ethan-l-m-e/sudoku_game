@@ -502,6 +502,7 @@ function ready() {
             candidateTile.classList.remove("marked");
         });
         document.getElementById("display-timer").innerHTML = "0:00:00";
+        numFilledTiles = 0;
     }
 
     // Setup the game.
