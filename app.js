@@ -253,6 +253,7 @@ function ready() {
 
         // Async request has finished.
         function proceedToGame() {
+            document.getElementById("display-difficulty").innerHTML = currentPlayDifficulty;
             populateGameBoard(currentBoard);
             swapScreens("game-container");
             startTimer();
