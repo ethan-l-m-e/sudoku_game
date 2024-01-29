@@ -96,12 +96,18 @@ function ready() {
             x.addEventListener("click", () => {
                 x.parentElement.parentElement.classList.toggle("shown");
             });
-            
         });
         Array.from(document.getElementsByClassName("clickable")).forEach((x) => {
             x.addEventListener("click", () => {
                 x.parentElement.classList.toggle("shown");
             });
+        });
+        document.getElementById("dropdown-button").addEventListener("click", () => {
+            toggleOverlay("dropdown-content");
+        });
+        document.getElementById("reveal-puzzle-button").addEventListener("click", (x) => {
+            revealPuzzle();
+            toggleOverlay("dropdown-content");
         });
     }
 
@@ -498,7 +504,8 @@ function ready() {
             tile.classList.remove("prefilled");
             tile.classList.remove("guessed");
             tile.classList.remove("conflicted");
-            tile.classList.remove("selected")
+            tile.classList.remove("selected");
+            tile.classList.remove("revealed");
             tile.innerHTML = "";
         });
         Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
@@ -506,6 +513,26 @@ function ready() {
         });
         document.getElementById("display-timer").innerHTML = "0:00:00";
         numFilledTiles = 0;
+    }
+
+    // Player wants to get the answer.
+    function revealPuzzle() {
+        let row_count = 0;
+        currentSolution.forEach(row => {
+            for (var i = 0; i < row.length; i++) {
+                let currentTile = gameTiles[i + (row_count * 9)];
+                if (currentTile.classList.contains("prefilled")) continue;
+
+                // Put the correct answer in the current tile.
+                tileSelected = i + (row_count * 9);
+                let answer = String(row[i]);
+                setTile(answer);
+
+                // Highlight the revealed cell in blue.
+                currentTile.classList.add("revealed");
+            }
+            row_count++;
+        });
     }
 
     // Setup the game.

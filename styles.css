@@ -45,6 +45,10 @@
     background-color: lightgrey;
 }
 
+.revealed {
+    color: #2c64d5;
+}
+
 .selected.prefilled {
     background-color: rgb(230, 197, 0);
 }
@@ -117,8 +121,8 @@
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+    border-bottom: 1px solid #bfbfbf;
+    border-top: 1px solid #bfbfbf;
     font-size: 18px;
 }
 
@@ -139,6 +143,42 @@
     background: none;
     font-size: 25px;
     padding: 0 10px;
+    height: 48px;
+    line-height: 48px;
+}
+
+.toolbar-dropdown {
+    position: relative;
+}
+
+.dropdown-button:hover {
+    background-color: #f4f4f4;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: -20px;
+    top: 49px;
+    width: 150px;
+    z-index: 1;
+    box-shadow: 0 3px 12px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    border: 1px solid #bfbfbf;
+    background-color: white;
+    border-top: 0;
+    height: 50px;
+    line-height: 50px;
+}
+
+.dropdown-item:hover {
+    background-color: #f4f4f4;
+}
+
+.dropdown-content.shown {
+    display: block;
 }
 
 .display-difficulty,
@@ -201,6 +241,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 2;
 }
 
 .overlay-card {
