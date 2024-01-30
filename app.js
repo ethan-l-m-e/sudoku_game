@@ -38,6 +38,7 @@ function ready() {
     let currentBoard = null;
     let currentSolution = null;
     let currentPlayDifficulty = null;
+    let previousDifficulty = null;
     let currentGameTime = { hours: 0, minutes: 0, seconds: 0 };
     let myPauseTimerFunction;
     let acceptInput = false;
@@ -119,6 +120,10 @@ function ready() {
                 e.target != document.getElementById("dropdown-button")) {
                 document.getElementById("dropdown-content").classList.remove("shown");
             }
+        });
+        document.getElementById("continue-button").addEventListener("click", () => {
+            nextGame();
+            toggleOverlay("win-overlay");
         });
     }
 
@@ -494,6 +499,7 @@ function ready() {
     function gameOver() {
         stopTimer();
         showWinningMessage();
+        previousDifficulty = currentPlayDifficulty;
         currentPlayDifficulty = null;
         acceptInput = false;
     }
@@ -553,6 +559,11 @@ function ready() {
         clearBoard();
         populateGameBoard(currentBoard);
         gameTiles[0].click();
+    }
+
+    // Player presses continue from winning screen.
+    function nextGame() {
+        playGame("Hard");
     }
 
     // Setup the game.
