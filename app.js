@@ -607,6 +607,7 @@ function ready() {
         resetTimer();
         clearBoard();
         populateGameBoard(currentBoard);
+        startTimer();
         gameTiles[0].click();
     }
 
