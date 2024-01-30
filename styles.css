@@ -310,6 +310,10 @@
     margin-bottom: 30px;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 /* hide screens when not rendering */
 .menu-container,
 .game-container,

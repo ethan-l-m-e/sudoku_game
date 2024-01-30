@@ -11,29 +11,29 @@
         <div class="menu-container screen rendering" id="menu-container">
             <h1 class="menu-header">Sudoku</h1>
             <div class="menu-subheading">Choose Your Puzzle:</div>
-            <button type="button" id="medium-difficulty-button" class="menu-button">Medium</button>
-            <button type="button" id="hard-difficulty-button" class="menu-button">Hard</button>
+            <button type="button" id="medium-difficulty-button" class="menu-button button">Medium</button>
+            <button type="button" id="hard-difficulty-button" class="menu-button button">Hard</button>
         </div>
         <div class="loading-screen screen">Loading...</div>
         <div class="game-container screen" id="game-container">
             <div class="toolbar">
                 <div class="toolbar-left">
-                    <button type="button" id="back-button" class="back-button toolbar-button">&lt; Back</button>
+                    <button type="button" id="back-button" class="back-button toolbar-button button">&lt; Back</button>
                 </div>
                 <div class="toolbar-center">
                     <div class="display-difficulty" id="display-difficulty">Medium</div>
                     <div class="display-timer" id="display-timer"></div>
-                    <div id="pause-button">&#9208;</div>
+                    <div id="pause-button" class="button">&#9208;</div>
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-dropdown">
-                        <div class="dropdown-button toolbar-button" id="dropdown-button">&#x22EF;</div>
+                        <div class="dropdown-button toolbar-button button" id="dropdown-button">&#x22EF;</div>
                         <div class="dropdown-content" id="dropdown-content">
-                            <div class="dropdown-item" id="reveal-puzzle-button">Reveal Puzzle</div>
-                            <div class="dropdown-item" id="reset-puzzle-button">Reset Puzzle</div>
+                            <div class="dropdown-item button" id="reveal-puzzle-button">Reveal Puzzle</div>
+                            <div class="dropdown-item button" id="reset-puzzle-button">Reset Puzzle</div>
                         </div>
                     </div>
-                    <button type="button" class="toolbar-button" id="settings-button">&#9881;</button>
+                    <button type="button" class="toolbar-button button" id="settings-button">&#9881;</button>
                 </div>
             </div>
             <div id="game-board" class="game-board">
@@ -1258,7 +1258,7 @@
                     <div class="overlay-card">
                         <div class="overlay-card-content">
                             <div class="overlay-message">Your game has been paused</div>
-                            <button type="button" id="resume-button" class="menu-button">Resume</button>
+                            <button type="button" id="resume-button" class="menu-button button">Resume</button>
                         </div>
                     </div>
                 </div>
@@ -1272,14 +1272,14 @@
                             <div class="overlay-message" id="winning-message">
                                 You finished an <span>easy</span> puzzle in <span>1:06</span>.
                             </div>
-                            <button type="button" id="continue-button" class="menu-button">Play another Sudoku</button>
+                            <button type="button" id="continue-button" class="menu-button button">Play another Sudoku</button>
                         </div>
                     </div>
                 </div>
                 <div class="settings-overlay overlay-wrapper" id="settings-overlay">
                     <div class="overlay-background clickable"></div>
                     <div class="overlay-card">
-                        <div class="close-button">&#10005;</div>
+                        <div class="close-button button">&#10005;</div>
                         <div class="overlay-card-content settings-card-content">
                             <div class="overlay-header">Settings</div>
                             <label>
