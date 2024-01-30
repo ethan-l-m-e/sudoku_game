@@ -262,6 +262,16 @@
     flex-direction: column;
 }
 
+.settings-card-content {
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: auto;
+}
+
+.hide-setting {
+    display: none;
+}
+
 .overlay-message {
     margin-bottom: 30px;
 }
@@ -287,11 +297,12 @@
 .star {
     font-size: 64px;
     color: orange;
+    margin-bottom: 30px;
 }
 
 .overlay-header {
     font-size: 32px;
-    margin: 20px 0;
+    margin-bottom: 20px;
     font-weight: bolder;
 }
 

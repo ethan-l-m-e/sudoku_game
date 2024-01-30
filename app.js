@@ -125,6 +125,18 @@ function ready() {
             nextGame();
             toggleOverlay("win-overlay");
         });
+        document.getElementById("settings-button").addEventListener("click", () => {
+            toggleOverlay("settings-overlay");
+        });
+        document.getElementById("show-timer-setting").addEventListener("click", () => {
+            if (document.getElementById("show-timer-setting").checked) {
+                document.getElementById("display-timer").classList.remove("hide-setting");
+                document.getElementById("pause-button").classList.remove("hide-setting");
+            } else {
+                document.getElementById("display-timer").classList.add("hide-setting");
+                document.getElementById("pause-button").classList.add("hide-setting");
+            }
+        });
     }
 
     // Game changes the rendered screen.

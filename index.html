@@ -33,7 +33,7 @@
                             <div class="dropdown-item" id="reset-puzzle-button">Reset Puzzle</div>
                         </div>
                     </div>
-                    <button type="button" class="toolbar-button">&#9881;</button>
+                    <button type="button" class="toolbar-button" id="settings-button">&#9881;</button>
                 </div>
             </div>
             <div id="game-board" class="game-board">
@@ -1273,6 +1273,19 @@
                                 You finished an <span>easy</span> puzzle in <span>1:06</span>.
                             </div>
                             <button type="button" id="continue-button" class="menu-button">Play another Sudoku</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-overlay overlay-wrapper" id="settings-overlay">
+                    <div class="overlay-background clickable"></div>
+                    <div class="overlay-card">
+                        <div class="close-button">&#10005;</div>
+                        <div class="overlay-card-content settings-card-content">
+                            <div class="overlay-header">Settings</div>
+                            <label>
+                                <input type="checkbox" id="show-timer-setting" checked>
+                                Show clock
+                            </label>
                         </div>
                     </div>
                 </div>
