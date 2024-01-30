@@ -109,6 +109,17 @@ function ready() {
             revealPuzzle();
             toggleOverlay("dropdown-content");
         });
+        document.getElementById("reset-puzzle-button").addEventListener("click", () => {
+            resetPuzzle();
+            toggleOverlay("dropdown-content");
+        });
+        document.addEventListener("click", (e) => {
+            // Clicking outside of dropdown to close it.
+            if (!document.getElementById("dropdown-content").contains(e.target) && 
+                e.target != document.getElementById("dropdown-button")) {
+                document.getElementById("dropdown-content").classList.remove("shown");
+            }
+        });
     }
 
     // Game changes the rendered screen.
@@ -513,6 +524,7 @@ function ready() {
         });
         document.getElementById("display-timer").innerHTML = "0:00:00";
         numFilledTiles = 0;
+        tileSelected = null;
     }
 
     // Player wants to get the answer.
@@ -533,6 +545,14 @@ function ready() {
             }
             row_count++;
         });
+    }
+
+    // Player wants to start same puzzle from scratch.
+    function resetPuzzle() {
+        resetTimer();
+        clearBoard();
+        populateGameBoard(currentBoard);
+        gameTiles[0].click();
     }
 
     // Setup the game.
