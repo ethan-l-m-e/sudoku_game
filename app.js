@@ -42,6 +42,41 @@ function ready() {
     let currentGameTime = { hours: 0, minutes: 0, seconds: 0 };
     let myPauseTimerFunction;
     let acceptInput = false;
+    let gameSettings = loadSettings();
+
+    // Player starts up the game.
+    function loadSettings() {
+        var s = localStorage.getItem("game-settings");
+        if (s === null) {
+            // Settings did not exist before.
+            s = {
+                "show-timer": true
+            }
+            localStorage.setItem("game-settings", JSON.stringify(s));
+            return s;
+        }
+        return JSON.parse(s);
+    }
+
+    // When player changes a setting.
+    function saveSettings(key, value) {
+        gameSettings[key] = value;
+        var s = JSON.stringify(gameSettings);
+        localStorage.setItem("game-settings", s);
+    }
+
+    // Apply previously loaded settings. Does not save any settings.
+    function applySettings() {
+        let timerSetting = document.getElementById("show-timer-setting");
+        timerSetting.checked = gameSettings["show-timer"];
+        if (timerSetting.checked) {
+            document.getElementById("display-timer").classList.remove("hide-setting");
+            document.getElementById("pause-button").classList.remove("hide-setting");
+        } else {
+            document.getElementById("display-timer").classList.add("hide-setting");
+            document.getElementById("pause-button").classList.add("hide-setting");
+        }
+    }
 
     // Set tile ids.
     function setupGameTileIds() {
@@ -132,9 +167,11 @@ function ready() {
             if (document.getElementById("show-timer-setting").checked) {
                 document.getElementById("display-timer").classList.remove("hide-setting");
                 document.getElementById("pause-button").classList.remove("hide-setting");
+                saveSettings("show-timer", true);;
             } else {
                 document.getElementById("display-timer").classList.add("hide-setting");
                 document.getElementById("pause-button").classList.add("hide-setting");
+                saveSettings("show-timer", false);
             }
         });
     }
@@ -580,6 +617,7 @@ function ready() {
 
     // Setup the game.
     function initGame() {
+        applySettings();
         setupGameTileIds();
         addGameTileListeners();
         addKeyboardListeners();
