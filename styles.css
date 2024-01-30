@@ -53,7 +53,8 @@
     background-color: rgb(230, 197, 0);
 }
 
-.game-tile.conflicted::before {
+.game-tile::before {
+    display: block;
     content: "";
     width: 10px;
     height: 10px;
@@ -62,7 +63,14 @@
     position: absolute;
     bottom: 5px;
     right: 5px;
-    display: block;
+    transform: scale3d(0, 0, 0);
+    transition: transform 0s; /* do not play transition when removing conflicted class */
+}
+
+.game-tile.conflicted::before {
+    transform: scale3d(1, 1, 1);
+    transition: transform .3s;
+    transition-timing-function: cubic-bezier(0.5, 2, 0, 1);
 }
 
 .candidate-tile {
