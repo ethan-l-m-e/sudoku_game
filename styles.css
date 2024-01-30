@@ -198,6 +198,10 @@
     font-size: 16px;
 }
 
+.pause-button:hover {
+    color: #bfbfbf;
+}
+
 .menu-container {
     text-align: center;
     margin-top: 20vh;
@@ -316,6 +320,11 @@
 
 .continue-button {
     margin-bottom: 30px;
+}
+
+.continue-button:hover,
+.resume-button:hover {
+    background-color: #333;
 }
 
 .button:hover {
