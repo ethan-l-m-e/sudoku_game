@@ -121,33 +121,33 @@ function ready() {
             stopTimer();
         });
         document.getElementById("pause-button").addEventListener("click", () => {
-            toggleOverlay("pause-overlay");
+            openOverlay("pause-overlay");
             stopTimer();
         });
         document.getElementById("resume-button").addEventListener("click", () => {
-            toggleOverlay("pause-overlay");
+            closeOverlay("pause-overlay");
             startTimer();
         });
         Array.from(document.getElementsByClassName("close-button")).forEach((x) => {
             x.addEventListener("click", () => {
-                x.parentElement.parentElement.classList.toggle("shown");
+                closeOverlay(x.parentElement.parentElement.id);
             });
         });
         Array.from(document.getElementsByClassName("clickable")).forEach((x) => {
             x.addEventListener("click", () => {
-                x.parentElement.classList.toggle("shown");
+                closeOverlay(x.parentElement.id);
             });
         });
         document.getElementById("dropdown-button").addEventListener("click", () => {
-            toggleOverlay("dropdown-content");
+            openOverlay("dropdown-content");
         });
         document.getElementById("reveal-puzzle-button").addEventListener("click", (x) => {
             revealPuzzle();
-            toggleOverlay("dropdown-content");
+            document.getElementById("dropdown-content").classList.remove("shown");
         });
         document.getElementById("reset-puzzle-button").addEventListener("click", () => {
             resetPuzzle();
-            toggleOverlay("dropdown-content");
+            document.getElementById("dropdown-content").classList.remove("shown");
         });
         document.addEventListener("click", (e) => {
             // Clicking outside of dropdown to close it.
@@ -158,10 +158,10 @@ function ready() {
         });
         document.getElementById("continue-button").addEventListener("click", () => {
             nextGame();
-            toggleOverlay("win-overlay");
+            closeOverlay("win-overlay");
         });
         document.getElementById("settings-button").addEventListener("click", () => {
-            toggleOverlay("settings-overlay");
+            openOverlay("settings-overlay");
         });
         document.getElementById("show-timer-setting").addEventListener("click", () => {
             if (document.getElementById("show-timer-setting").checked) {
@@ -191,8 +191,19 @@ function ready() {
     }
 
     // When player clicks UI buttons.
-    function toggleOverlay(overlay) {
-        document.getElementById(overlay).classList.toggle("shown");
+    function closeOverlay(overlay) {
+        let overlayWrapper = document.getElementById(overlay);
+        // Animate closing.
+        overlayWrapper.classList.add("close");
+        window.setTimeout(() => {
+            overlayWrapper.classList.remove("shown"); // Hide overlay before close animation.
+            overlayWrapper.classList.remove("close"); // Close animation class.
+        }, 200);
+    }
+
+    function openOverlay(overlay) {
+        let overlayWrapper = document.getElementById(overlay);
+        overlayWrapper.classList.add("shown");
     }
 
     // Player clicks on a tile.
@@ -561,7 +572,7 @@ function ready() {
         }
         document.getElementById("winning-message").innerHTML = 
             `You finished ${a} ${currentPlayDifficulty} puzzle in ${getTime()}.`;
-        toggleOverlay("win-overlay");
+        openOverlay("win-overlay");
     }
 
     // Tear down.

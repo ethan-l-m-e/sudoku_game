@@ -267,6 +267,25 @@
     border-radius: 5px;
 }
 
+@keyframes slide {
+    from { transform: translate(0, 60px); }
+    to { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes slideOut {
+    from { transform: translate(0, 0); }
+    to { transform: translate(0, 60px); opacity: 0; }
+}
+
+.overlay-wrapper.shown .overlay-card {
+    animation-name: slide;
+    animation-duration: .3s;
+}
+
+.overlay-wrapper.close .overlay-card {
+    animation-name: slideOut;
+    animation-duration: .3s;
+}
+
 .overlay-card-content {
     min-height: 230px;
     display: flex;
