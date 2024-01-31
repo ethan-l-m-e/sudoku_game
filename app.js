@@ -581,6 +581,7 @@ function ready() {
             swapScreens("game-container");
         }
         acceptInput = true;
+        document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
         gameTiles[0].click();
     }
 
@@ -591,6 +592,7 @@ function ready() {
         previousDifficulty = currentPlayDifficulty;
         currentPlayDifficulty = null;
         acceptInput = false;
+        document.getElementById("reveal-puzzle-button").classList.add("hide-setting");
     }
 
     // Displays the game stats.
@@ -649,6 +651,7 @@ function ready() {
         clearBoard();
         populateGameBoard(currentBoard);
         startTimer();
+        document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
         gameTiles[0].click();
     }
 
