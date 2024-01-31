@@ -1,25 +1,57 @@
-// Test board and solution.
-const test_board_data_medium = [
-    [0,8,0,5,0,0,6,7,0],
-    [0,7,0,0,0,0,4,5,0],
-    [0,0,0,8,0,0,3,0,0],
-    [0,0,8,2,6,0,1,0,0],
-    [4,0,0,0,0,0,0,3,5],
-    [0,0,0,7,0,4,8,0,0],
-    [7,1,5,0,2,0,0,0,3],
-    [0,0,0,3,0,0,0,0,0],
-    [0,2,0,0,0,8,0,0,0]];
-
-const test_board_solution_medium = [
-    [3,8,4,5,9,1,6,7,2],
-    [9,7,1,6,3,2,4,5,8],
-    [2,5,6,8,4,7,3,9,1],
-    [5,9,8,2,6,3,1,4,7],
-    [4,6,7,1,8,9,2,3,5],
-    [1,3,2,7,5,4,8,6,9],
-    [7,1,5,4,2,6,9,8,3],
-    [8,4,9,3,1,5,7,2,6],
-    [6,2,3,9,7,8,5,1,4]];
+const template_boards = {
+    "Medium": [ // List of Medium difficulty data and solutions.
+        {
+            "data": [
+                [0,8,0,5,0,0,6,7,0],
+                [0,7,0,0,0,0,4,5,0],
+                [0,0,0,8,0,0,3,0,0],
+                [0,0,8,2,6,0,1,0,0],
+                [4,0,0,0,0,0,0,3,5],
+                [0,0,0,7,0,4,8,0,0],
+                [7,1,5,0,2,0,0,0,3],
+                [0,0,0,3,0,0,0,0,0],
+                [0,2,0,0,0,8,0,0,0]
+            ],
+            "solution": [
+                [3,8,4,5,9,1,6,7,2],
+                [9,7,1,6,3,2,4,5,8],
+                [2,5,6,8,4,7,3,9,1],
+                [5,9,8,2,6,3,1,4,7],
+                [4,6,7,1,8,9,2,3,5],
+                [1,3,2,7,5,4,8,6,9],
+                [7,1,5,4,2,6,9,8,3],
+                [8,4,9,3,1,5,7,2,6],
+                [6,2,3,9,7,8,5,1,4]
+            ]
+        }
+    ],
+    "Hard": [
+        { // List of Hard difficulty data and solutions.
+            "data":[
+                [0,0,0,8,0,0,0,0,0],
+                [0,0,9,4,6,0,7,1,0],
+                [0,0,0,0,2,0,0,0,4],
+                [0,0,0,0,0,0,0,9,0],
+                [0,0,0,0,0,2,0,0,0],
+                [0,0,0,0,0,0,0,0,5],
+                [0,0,0,0,5,6,1,0,0],
+                [0,0,0,0,8,0,5,0,0],
+                [0,3,0,0,0,0,0,4,0]
+            ],
+            "solution": [
+                [2,4,7,8,1,5,6,3,9],
+                [5,8,9,4,6,3,7,1,2],
+                [3,1,6,7,2,9,8,5,4],
+                [7,6,4,5,3,8,2,9,1],
+                [9,5,1,6,4,2,3,8,7],
+                [8,2,3,1,9,7,4,6,5],
+                [4,7,8,9,5,6,1,2,3],
+                [1,9,2,3,8,4,5,7,6],
+                [6,3,5,2,7,1,9,4,8]
+            ]
+        }
+    ]
+}
 
 // Ensure html has been loaded.
 if (document.readyState == "loading") {
@@ -361,9 +393,10 @@ function ready() {
             currentPlayDifficulty = result.newboard.grids[0].difficulty;
             proceedToGame();
         }).catch(error => {
-            console.log(error)
-            currentBoard = test_board_data_medium;
-            currentSolution = test_board_solution_medium;
+            console.log(error);
+            // Retrieve from list of precomputed boards.
+            currentBoard = template_boards[difficulty][0].data;
+            currentSolution = template_boards[difficulty][0].solution;
             currentPlayDifficulty = difficulty;
             proceedToGame();
         });
