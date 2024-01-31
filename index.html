@@ -22,8 +22,10 @@
                 </div>
                 <div class="toolbar-center">
                     <div class="display-difficulty" id="display-difficulty">Medium</div>
-                    <div class="display-timer" id="display-timer"></div>
-                    <div id="pause-button" class="pause-button button">&#9208;</div>
+                    <label class="display-timer button" id="display-timer">
+                        <div class="timer-unit" id="timer-unit"></div>
+                        <div id="pause-button" class="pause-button">&#9208;</div>
+                    </label>
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-dropdown">
@@ -1265,7 +1267,7 @@
                 <div class="gameover-overlay overlay-wrapper" id="win-overlay">
                     <div class="overlay-background clickable"></div>
                     <div class="overlay-card">
-                        <div class="close-button">&#10005;</div>
+                        <div class="close-button button">&#10005;</div>
                         <div class="overlay-card-content">
                             <div class="star">&#10026;</div>
                             <div class="overlay-header">Congrats!</div>

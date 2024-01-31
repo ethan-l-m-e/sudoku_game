@@ -194,11 +194,21 @@
     margin: 0 16px;
 }
 
+.display-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .back-button {
     font-size: 16px;
 }
 
-.pause-button:hover {
+.pause-button {
+    margin-left: 10px;
+}
+
+.display-timer:hover .pause-button {
     color: #bfbfbf;
 }
 
@@ -314,8 +324,10 @@
 
 .close-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 0;
+    right: 0;
+    width: 60px;
+    padding: 20px;
 }
 
 .gameover-overlay .overlay-card {

@@ -71,10 +71,8 @@ function ready() {
         timerSetting.checked = gameSettings["show-timer"];
         if (timerSetting.checked) {
             document.getElementById("display-timer").classList.remove("hide-setting");
-            document.getElementById("pause-button").classList.remove("hide-setting");
         } else {
             document.getElementById("display-timer").classList.add("hide-setting");
-            document.getElementById("pause-button").classList.add("hide-setting");
         }
     }
 
@@ -120,7 +118,7 @@ function ready() {
             swapScreens("menu-container");
             stopTimer();
         });
-        document.getElementById("pause-button").addEventListener("click", () => {
+        document.getElementById("display-timer").addEventListener("click", () => {
             openOverlay("pause-overlay");
             stopTimer();
         });
@@ -166,11 +164,9 @@ function ready() {
         document.getElementById("show-timer-setting").addEventListener("click", () => {
             if (document.getElementById("show-timer-setting").checked) {
                 document.getElementById("display-timer").classList.remove("hide-setting");
-                document.getElementById("pause-button").classList.remove("hide-setting");
                 saveSettings("show-timer", true);;
             } else {
                 document.getElementById("display-timer").classList.add("hide-setting");
-                document.getElementById("pause-button").classList.add("hide-setting");
                 saveSettings("show-timer", false);
             }
         });
@@ -509,7 +505,7 @@ function ready() {
         currentGameTime.minutes = m;
         currentGameTime.hours = h;
         // Show the time on screen.
-        document.getElementById("display-timer").innerHTML = getTime();
+        document.getElementById("timer-unit").innerHTML = getTime();
     }
 
     // Current time played.
@@ -588,7 +584,7 @@ function ready() {
         Array.from(document.getElementsByClassName("candidate")).forEach(candidateTile => {
             candidateTile.classList.remove("marked");
         });
-        document.getElementById("display-timer").innerHTML = "0:00:00";
+        document.getElementById("timer-unit").innerHTML = "0:00:00";
         numFilledTiles = 0;
         tileSelected = null;
     }
@@ -615,6 +611,7 @@ function ready() {
 
     // Player wants to start same puzzle from scratch.
     function resetPuzzle() {
+        stopTimer();
         resetTimer();
         clearBoard();
         populateGameBoard(currentBoard);
