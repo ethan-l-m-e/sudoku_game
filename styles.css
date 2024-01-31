@@ -226,9 +226,34 @@ body {
     display: flex;
 }
 
+.menu-icon {
+    display: grid;
+    grid-template-columns: 28px 28px;
+    gap: 3px;
+    background-color: black;
+    border: 3px solid black;
+    margin-bottom: 17px;
+}
+
+.menu-icon .icon-square {
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family: Courier, monospace;
+}
+
+.icon-square.empty {
+    background-color: rgb(251, 155, 0);
+}
+
 .menu-header {
     font-size: xxx-large;
-    margin-bottom: 12px;
+    margin: 0 0 12px 0;
 }
 
 .menu-description {
