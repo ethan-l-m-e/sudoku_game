@@ -252,6 +252,7 @@ body {
     border-radius: 30px;
     background-color: black;
     color: white;
+    font-weight: bold;
 }
 
 .loading-screen {
