@@ -139,7 +139,7 @@ function ready() {
             });
         });
         document.getElementById("dropdown-button").addEventListener("click", () => {
-            openOverlay("dropdown-content");
+            document.getElementById("dropdown-content").classList.toggle("shown");
         });
         document.getElementById("reveal-puzzle-button").addEventListener("click", (x) => {
             revealPuzzle();
