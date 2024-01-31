@@ -38,7 +38,7 @@
 }
 
 .selected {
-    background-color: yellow;
+    background-color: #ffda00;
 }
 
 .prefilled {
@@ -84,15 +84,17 @@
 }
 
 .candidate {
-    opacity: 0;
     height: var(--candidate-height);
     width: var(--candidate-height);
     font-size: small;
     font-weight: 100;
     line-height: var(--candidate-height);
+    transition: opacity .4s .3s ease;
+    opacity: 0;
 }
 
 .selected~.candidate-tile .candidate:hover {
+    transition: opacity .4s ease;
     opacity: 0.5;
 }
 
