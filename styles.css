@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+}
+
 .game-container {
     text-align: center;
 }
@@ -131,6 +135,7 @@
     justify-content: space-between;
     align-items: center;
     height: 50px;
+    width: 100vw;
     border-bottom: 1px solid #bfbfbf;
     border-top: 1px solid #bfbfbf;
     font-size: 18px;
@@ -216,14 +221,23 @@
 
 .menu-container {
     text-align: center;
-    margin-top: 20vh;
+    background-color: rgb(251, 155, 0);
+    height: 100vh;
+    display: flex;
 }
 
 .menu-header {
     font-size: xxx-large;
+    margin-bottom: 12px;
 }
 
-.menu-subheading {
+.menu-description {
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 0;
+    margin-bottom: 32px;
+}
+
+.menu-prompt {
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -370,8 +384,14 @@
 .game-container,
 .loading-screen {
     display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
 }
 
 .rendering {
-    display: block;
+    display: flex;
 }
