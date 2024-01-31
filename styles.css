@@ -281,6 +281,41 @@ body {
     font-weight: bold;
 }
 
+@keyframes slide-up {
+    from { transform: translate(0, 30px); opacity: .1; }
+    to { transform: translate(0, 0); }
+}
+
+.slide-up {
+    animation-name: slide-up;
+    animation-duration: .7s;
+    animation-timing-function: ease;
+}
+
+.slide-up.menu-icon {
+    animation-delay: 0ms;
+}
+
+.slide-up.menu-header {
+    animation-delay: 50ms;
+}
+
+.slide-up.menu-description {
+    animation-delay: 100ms;
+}
+
+.slide-up.menu-prompt {
+    animation-delay: 150ms;
+}
+
+.slide-up.medium-difficulty-button {
+    animation-delay: 200ms;
+}
+
+.slide-up.hard-difficulty-button {
+    animation-delay: 250ms;
+}
+
 .loading-screen {
     height: 90vh;
     line-height: 90vh;
