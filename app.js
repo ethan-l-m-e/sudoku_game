@@ -641,6 +641,7 @@ function ready() {
             startTimer();
             swapScreens("game-container");
         }
+        previousDifficulty = difficulty;
         acceptInput = true;
         document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
         gameTiles[0].click();
@@ -713,6 +714,7 @@ function ready() {
         clearBoard();
         populateGameBoard(currentBoard);
         startTimer();
+        currentPlayDifficulty = previousDifficulty;
         document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
         acceptInput = true;
         gameTiles[0].click();
