@@ -45,6 +45,13 @@ body {
     position: relative;
 }
 
+.game-tile,
+.candidate,
+.number-pad-normal,
+.number-pad-candidate {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .game-tile {
     width: var(--game-tile-height);
     height: var(--game-tile-height);
@@ -60,7 +67,7 @@ body {
 }
 
 .prefilled {
-    background-color: lightgrey;
+    background-color: rgb(230, 230, 230);
 }
 
 .revealed {
@@ -209,6 +216,10 @@ body {
     border-radius: 5px;
     position: relative;
     cursor: pointer;
+}
+
+.keyboard-delete-button {
+    font-weight: bold;
 }
 
 .number-pad-normal {
