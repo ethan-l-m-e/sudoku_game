@@ -65,6 +65,7 @@ function ready() {
 
     // GAME VARIABLES.
     const gameTiles = document.querySelectorAll("div[data-tile]");
+    const gameKeyboard = document.getElementById("game-keyboard");
     let tileSelected = null;
     let numFilledTiles = 0;
     let currentBoard = null;
@@ -202,6 +203,31 @@ function ready() {
                 saveSettings("show-timer", false);
             }
         });
+        document.getElementById("input-normal-button").addEventListener("click", () => {
+            let keyboard = document.getElementById("game-keyboard");
+            keyboard.classList.remove("input-candidate");
+            keyboard.classList.add("input-normal");
+        });
+        document.getElementById("input-candidate-button").addEventListener("click", () => {
+            let keyboard = document.getElementById("game-keyboard");
+            keyboard.classList.remove("input-normal");
+            keyboard.classList.add("input-candidate");
+        });
+        Array.from(document.getElementsByClassName("number-pad-button-container")).forEach((numberPadButton) => {
+            let num = numberPadButton.dataset.number;
+            numberPadButton.addEventListener("click", () => {
+                // Normal input mode
+                if (gameKeyboard.classList.contains("input-normal")) {
+                    setTile(num);
+                // Candidate input mode
+                } else if (gameKeyboard.classList.contains("input-candidate")) {
+                    setCandidate(num);
+                }
+            });
+        });
+        document.getElementById("keyboard-delete-button").addEventListener("click", () => {
+            clearTile();
+        });
     }
 
     // Game changes the rendered screen.
@@ -299,7 +325,13 @@ function ready() {
             case "7":
             case "8":
             case "9":
-                setTile(e.key);
+                // Normal input mode
+                if (gameKeyboard.classList.contains("input-normal")) {
+                    setTile(e.key);
+                // Candidate input mode
+                } else if (gameKeyboard.classList.contains("input-candidate")) {
+                    setCandidate(e.key);
+                }
                 break;
             case "ArrowLeft":
             case "ArrowUp":
@@ -337,7 +369,28 @@ function ready() {
         });
 
         // Board is filled.
+        console.log(numFilledTiles)
         if (numFilledTiles == 81) checkSolution();
+    }
+
+    // Player clicks the number pad in candidate mode.
+    function setCandidate(num) {
+        let currentTile = gameTiles[tileSelected];
+
+        if (currentTile.classList.contains("prefilled")) return;
+
+        if (currentTile.classList.contains("guessed")) clearTile();
+
+        let numberToSet = Number(num);
+
+        let siblingCandidates = Array.from(currentTile.nextElementSibling.children);
+
+        // Stop transition effect when adding candidate tile.
+        siblingCandidates[numberToSet - 1].classList.add("no-transition");
+        siblingCandidates[numberToSet - 1].classList.toggle("marked"); // Index is num - 1.
+        setTimeout(() => { 
+            siblingCandidates[numberToSet - 1].classList.remove("no-transition");
+        }, 1000);
     }
 
     // Player presses backspace.
@@ -352,10 +405,18 @@ function ready() {
             let siblingCandidateTile = currentTile.nextElementSibling;
             Array.from(siblingCandidateTile.children).forEach((candidateTile) => {
                 if (candidateTile.classList.contains("marked")) {
+                    // Stop transition effect when deleting candidate tile.
+                    candidateTile.classList.add("no-transition");
                     candidateTile.classList.remove("marked");
+                    setTimeout(() => { 
+                        candidateTile.classList.remove("no-transition");
+                    }, 1000);
                 }
             });
         }
+
+        // No guesses to clear.
+        if (!currentTile.classList.contains("guessed")) return;
 
         numFilledTiles--;
         currentTile.innerHTML = "";
@@ -652,6 +713,7 @@ function ready() {
         populateGameBoard(currentBoard);
         startTimer();
         document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
+        acceptInput = true;
         gameTiles[0].click();
     }
 
