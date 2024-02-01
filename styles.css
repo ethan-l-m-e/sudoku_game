@@ -242,61 +242,6 @@ body {
     grid-area: 2 / 2;
 }
 
-@media screen and (min-width: 990px) {
-    .game-keyboard {
-        max-width: 240px;
-        margin: 0 0 0 40px;
-    }
-
-    .input-mode {
-        margin-bottom: 0;
-    }
-
-    .number-pad {
-        justify-content: space-between;
-    }
-
-    .number-pad-button-container {
-        width: 70px;
-        height: 70px;
-        max-height: none;
-        grid-template-rows: repeat(3, 23.3px);
-    }
-
-    .number-pad-normal {
-        font-size: 35px;
-    }
-
-    .number-pad-candidate {
-        width: 23.3px;
-        height: 23.3px;
-        font-size: 16px;
-    }
-
-    .numpad-candidate-1 { grid-area: 1 / 1; }
-    .numpad-candidate-2 { grid-area: 1 / 2; }
-    .numpad-candidate-3 { grid-area: 1 / 3; }
-    .numpad-candidate-4 { grid-area: 2 / 1; }
-    .numpad-candidate-5 { grid-area: 2 / 2; }
-    .numpad-candidate-6 { grid-area: 2 / 3; }
-    .numpad-candidate-7 { grid-area: 3 / 1; }
-    .numpad-candidate-8 { grid-area: 3 / 2; }
-    .numpad-candidate-9 { grid-area: 3 / 3; }
-
-    .keyboard-delete-button {
-        width: 98%;
-    }
-
-    .number-pad-button-container,
-    .keyboard-delete-button {
-        margin-top: 14px;
-    }
-
-    .game-container {
-        justify-content: flex-start;
-    }
-}
-
 .game-keyboard.input-normal .number-pad-candidate,
 .game-keyboard.input-candidate .number-pad-normal {
     display: none;
@@ -529,9 +474,9 @@ body {
 }
 
 .overlay-card {
+    width: 96vw;
     position: relative;
-    min-width: 540px;
-    padding: 48px;
+    padding: 48px 20px;
     background-color: white;
     z-index: 9;
     box-shadow: 0 3px 12px 1px rgba(0, 0, 0, 0.2);
@@ -649,6 +594,68 @@ body {
 }
 
 @media screen and (min-width: 500px) {
+    .game-container {
+        justify-content: flex-start;
+    }
+
+    .overlay-card {
+        width: auto;
+        min-width: 540px;
+        padding: 48px;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 990px) {
+    .game-keyboard {
+        max-width: 240px;
+        margin: 0 0 0 40px;
+    }
+
+    .input-mode {
+        margin-bottom: 0;
+    }
+
+    .number-pad {
+        justify-content: space-between;
+    }
+
+    .number-pad-button-container {
+        width: 70px;
+        height: 70px;
+        max-height: none;
+        grid-template-rows: repeat(3, 23.3px);
+    }
+
+    .number-pad-normal {
+        font-size: 35px;
+    }
+
+    .number-pad-candidate {
+        width: 23.3px;
+        height: 23.3px;
+        font-size: 16px;
+    }
+
+    .numpad-candidate-1 { grid-area: 1 / 1; }
+    .numpad-candidate-2 { grid-area: 1 / 2; }
+    .numpad-candidate-3 { grid-area: 1 / 3; }
+    .numpad-candidate-4 { grid-area: 2 / 1; }
+    .numpad-candidate-5 { grid-area: 2 / 2; }
+    .numpad-candidate-6 { grid-area: 2 / 3; }
+    .numpad-candidate-7 { grid-area: 3 / 1; }
+    .numpad-candidate-8 { grid-area: 3 / 2; }
+    .numpad-candidate-9 { grid-area: 3 / 3; }
+
+    .keyboard-delete-button {
+        width: 98%;
+    }
+
+    .number-pad-button-container,
+    .keyboard-delete-button {
+        margin-top: 14px;
+    }
+
     .game-container {
         justify-content: flex-start;
     }
