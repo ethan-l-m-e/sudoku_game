@@ -66,6 +66,7 @@ function ready() {
     // GAME VARIABLES.
     const gameTiles = document.querySelectorAll("div[data-tile]");
     const gameKeyboard = document.getElementById("game-keyboard");
+    const puzzleSolvedSound = document.getElementById("sound-unit");
     let tileSelected = null;
     let numFilledTiles = 0;
     let currentBoard = null;
@@ -649,6 +650,7 @@ function ready() {
     function gameOver() {
         stopTimer();
         showWinningMessage();
+        puzzleSolvedSound.play();
         previousDifficulty = currentPlayDifficulty;
         currentPlayDifficulty = null;
         acceptInput = false;
