@@ -369,7 +369,6 @@ function ready() {
         });
 
         // Board is filled.
-        console.log(numFilledTiles)
         if (numFilledTiles == 81) checkSolution();
     }
 
