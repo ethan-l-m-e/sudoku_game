@@ -347,6 +347,8 @@ function ready() {
 
     // Player presses a number from 1–9.
     function setTile(key) {
+        if (!acceptInput) return;
+
         let currentTile = gameTiles[tileSelected];
 
         // Tile is part of puzzle.
@@ -375,6 +377,8 @@ function ready() {
 
     // Player clicks the number pad in candidate mode.
     function setCandidate(num) {
+        if (!acceptInput) return;
+
         let currentTile = gameTiles[tileSelected];
 
         if (currentTile.classList.contains("prefilled")) return;
@@ -395,6 +399,8 @@ function ready() {
 
     // Player presses backspace.
     function clearTile() {
+        if (!acceptInput) return;
+
         let currentTile = gameTiles[tileSelected];
 
         // Tile is part of puzzle and cannot be cleared, or tile is already empty.
