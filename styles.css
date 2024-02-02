@@ -135,12 +135,6 @@ body {
     pointer-events: none;
 }
 
-/* Player has entered guess, or tile is part of puzzle */
-.guessed+.candidate-tile,
-.prefilled~.candidate-tile {
-    display: none;
-}
-
 .game-tile-button {
     width: var(--game-tile-height);
     height: var(--game-tile-height);
@@ -686,6 +680,12 @@ body {
     .game-container {
         justify-content: flex-start;
     }
+}
+
+/* Player has entered guess, or tile is part of puzzle */
+.guessed+.candidate-tile,
+.prefilled~.candidate-tile {
+    display: none;
 }
 
 /* hide screens when not rendering */
