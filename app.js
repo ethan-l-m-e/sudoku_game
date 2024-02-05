@@ -173,16 +173,20 @@ function ready() {
         document.getElementById("dropdown-button").addEventListener("click", () => {
             document.getElementById("dropdown-content").classList.toggle("shown");
         });
+        document.getElementById("check-cell-button").addEventListener("click", () => {
+            checkCell(gameTiles[tileSelected]);
+            document.getElementById("dropdown-content").classList.remove("shown");
+        });
+        document.getElementById("check-puzzle-button").addEventListener("click", () => {
+            checkPuzzle();
+            document.getElementById("dropdown-content").classList.remove("shown");
+        });
         document.getElementById("reveal-puzzle-button").addEventListener("click", (x) => {
             revealPuzzle();
             document.getElementById("dropdown-content").classList.remove("shown");
         });
         document.getElementById("reset-puzzle-button").addEventListener("click", () => {
             resetPuzzle();
-            document.getElementById("dropdown-content").classList.remove("shown");
-        });
-        document.getElementById("check-cell-button").addEventListener("click", () => {
-            checkCell();
             document.getElementById("dropdown-content").classList.remove("shown");
         });
         document.addEventListener("click", (e) => {
@@ -708,8 +712,7 @@ function ready() {
     }
 
     // Player wants to see if tile is correct.
-    function checkCell() {
-        let currentTile = gameTiles[tileSelected];
+    function checkCell(currentTile) {
 
         // Revealed tile is already correct.
         if (currentTile.classList.contains("revealed")) return;
@@ -726,6 +729,13 @@ function ready() {
                 currentTile.classList.add("incorrect");
             }
         }
+    }
+
+    // Player wants to check all tiles.
+    function checkPuzzle() {
+        gameTiles.forEach((tile) => {
+            checkCell(tile);
+        });
     }
 
     // Player wants to get the answer.
