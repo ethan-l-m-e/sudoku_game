@@ -100,6 +100,18 @@ body {
     transition-timing-function: cubic-bezier(0.5, 2, 0, 1);
 }
 
+.game-tile.incorrect::after {
+    display: block;
+    content: "";
+    width: 142%;
+    height: 142%;
+    border-left: 2px solid red;
+    position: absolute;
+    top: 29%;
+    left: 29%;
+    transform: rotate(45deg);
+}
+
 .candidate-tile {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -133,18 +145,6 @@ body {
 .selected+.candidate-tile {
     display: grid;
     pointer-events: none;
-}
-
-.game-tile-button {
-    width: var(--game-tile-height);
-    height: var(--game-tile-height);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.selected~.game-tile-button {
-    display: none;
 }
 
 .game-app {
@@ -528,7 +528,7 @@ body {
     min-height: auto;
 }
 
-.hide-setting {
+.dropdown-content.game-over :not(.game-over-setting) {
     display: none;
 }
 

@@ -181,6 +181,10 @@ function ready() {
             resetPuzzle();
             document.getElementById("dropdown-content").classList.remove("shown");
         });
+        document.getElementById("check-cell-button").addEventListener("click", () => {
+            checkCell();
+            document.getElementById("dropdown-content").classList.remove("shown");
+        });
         document.addEventListener("click", (e) => {
             // Clicking outside of dropdown to close it.
             if (!document.getElementById("dropdown-content").contains(e.target) && 
@@ -354,6 +358,9 @@ function ready() {
         // Tile is part of puzzle.
         if (currentTile.classList.contains("prefilled")) return;
 
+        // Tile correct answer has been revealed.
+        if (currentTile.classList.contains("revealed")) return;
+
         // Tile already has the same value.
         if (currentTile.innerHTML === key) return;
 
@@ -361,10 +368,8 @@ function ready() {
         if (currentTile.innerHTML === "") numFilledTiles++;
 
         currentTile.innerHTML = key;
-
-        if (!currentTile.classList.contains("guessed")) {
-            currentTile.classList.add("guessed");
-        }
+        currentTile.classList.add("guessed");
+        currentTile.classList.remove("incorrect");
 
         // Check if player inputted invalid value.
         gameTiles.forEach(tile => {
@@ -381,8 +386,13 @@ function ready() {
 
         let currentTile = gameTiles[tileSelected];
 
+        // Tile is part of puzzle.
         if (currentTile.classList.contains("prefilled")) return;
 
+        // Revealed tile cannot be modified again.
+        if (currentTile.classList.contains("revealed")) return;
+
+        // Remove current guess in tile, if any.
         if (currentTile.classList.contains("guessed")) clearTile();
 
         let numberToSet = Number(num);
@@ -402,6 +412,9 @@ function ready() {
         if (!acceptInput) return;
 
         let currentTile = gameTiles[tileSelected];
+
+        // Revealed tile cannot be cleared.
+        if (currentTile.classList.contains("revealed")) return;
 
         // Tile is part of puzzle and cannot be cleared, or tile is already empty.
         if (currentTile.classList.contains("prefilled")) return;
@@ -427,6 +440,7 @@ function ready() {
         numFilledTiles--;
         currentTile.innerHTML = "";
         currentTile.classList.remove("guessed");
+        currentTile.classList.remove("incorrect");
 
         // Update conflicts
         gameTiles.forEach(tile => {
@@ -661,7 +675,7 @@ function ready() {
         previousDifficulty = currentPlayDifficulty;
         currentPlayDifficulty = null;
         acceptInput = false;
-        document.getElementById("reveal-puzzle-button").classList.add("hide-setting");
+        document.getElementById("dropdown-content").classList.add("game-over");
     }
 
     // Displays the game stats.
@@ -693,6 +707,27 @@ function ready() {
         tileSelected = null;
     }
 
+    // Player wants to see if tile is correct.
+    function checkCell() {
+        let currentTile = gameTiles[tileSelected];
+
+        // Revealed tile is already correct.
+        if (currentTile.classList.contains("revealed")) return;
+
+        // Prefilled tile does not need to be checked.
+        if (currentTile.classList.contains("prefilled")) return;
+
+        if (currentTile.classList.contains("guessed")) {
+            let row = Math.floor(tileSelected / 9);
+            let col = tileSelected % 9;
+            if (Number(currentTile.innerHTML) === currentSolution[row][col]) {
+                currentTile.classList.add("revealed");
+            } else {
+                currentTile.classList.add("incorrect");
+            }
+        }
+    }
+
     // Player wants to get the answer.
     function revealPuzzle() {
         let row_count = 0;
@@ -721,7 +756,7 @@ function ready() {
         populateGameBoard(currentBoard);
         startTimer();
         currentPlayDifficulty = previousDifficulty;
-        document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
+        document.getElementById("dropdown-content").classList.remove("game-over");
         acceptInput = true;
         gameTiles[0].click();
     }
