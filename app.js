@@ -80,17 +80,24 @@ function ready() {
 
     // Player starts up the game.
     function loadSettings() {
-        var s = localStorage.getItem("game-settings");
-        if (s === null) {
+        var s = JSON.parse(localStorage.getItem("game-settings"));
+        if (!validateSettings(s)) {
             // Settings did not exist before.
             s = {
                 "show-timer": true,
                 "play-sound": true
             }
             localStorage.setItem("game-settings", JSON.stringify(s));
-            return s;
         }
-        return JSON.parse(s);
+        return s;
+    }
+
+    // Check if settings are in the correct format.
+    function validateSettings(s) {
+        if (s === null) return false;
+        if ((typeof s["show-timer"]) !== 'boolean') return false;
+        if ((typeof s["play-sound"]) !== 'boolean') return false;
+        return true;
     }
 
     // When player changes a setting.

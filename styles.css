@@ -362,6 +362,10 @@ body {
     display: none;
 }
 
+.display-timer.hide-setting {
+    display: none;
+}
+
 .menu-container {
     text-align: center;
     background-color: rgb(251, 155, 0);
