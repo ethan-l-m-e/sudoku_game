@@ -84,7 +84,8 @@ function ready() {
         if (s === null) {
             // Settings did not exist before.
             s = {
-                "show-timer": true
+                "show-timer": true,
+                "play-sound": true
             }
             localStorage.setItem("game-settings", JSON.stringify(s));
             return s;
@@ -101,6 +102,7 @@ function ready() {
 
     // Apply previously loaded settings. Does not save any settings.
     function applySettings() {
+        // Timer checkbox.
         let timerSetting = document.getElementById("show-timer-setting");
         timerSetting.checked = gameSettings["show-timer"];
         if (timerSetting.checked) {
@@ -108,6 +110,10 @@ function ready() {
         } else {
             document.getElementById("display-timer").classList.add("hide-setting");
         }
+
+        // Sound checkbox.
+        let playSoundSetting = document.getElementById("play-sound-setting");
+        playSoundSetting.checked = gameSettings["play-sound"];
     }
 
     // Set tile ids.
@@ -210,6 +216,13 @@ function ready() {
             } else {
                 document.getElementById("display-timer").classList.add("hide-setting");
                 saveSettings("show-timer", false);
+            }
+        });
+        document.getElementById("play-sound-setting").addEventListener("click", () => {
+            if (document.getElementById("play-sound-setting").checked) {
+                saveSettings("play-sound", true);;
+            } else {
+                saveSettings("play-sound", false);
             }
         });
         document.getElementById("input-normal-button").addEventListener("click", () => {
@@ -675,7 +688,7 @@ function ready() {
     function gameOver() {
         stopTimer();
         showWinningMessage();
-        puzzleSolvedSound.play();
+        playSound();
         previousDifficulty = currentPlayDifficulty;
         currentPlayDifficulty = null;
         acceptInput = false;
@@ -691,6 +704,13 @@ function ready() {
         document.getElementById("winning-message").innerHTML = 
             `You finished ${a} ${currentPlayDifficulty} puzzle in ${getTime()}.`;
         openOverlay("win-overlay");
+    }
+
+    // Jingle when the player wins.
+    function playSound() {
+        if (gameSettings["play-sound"]) {
+            puzzleSolvedSound.play();
+        }
     }
 
     // Tear down.
