@@ -354,6 +354,14 @@ body {
     color: #bfbfbf;
 }
 
+.display-timer.game-over {
+    pointer-events: none;
+}
+
+.display-timer.game-over .pause-button {
+    display: none;
+}
+
 .menu-container {
     text-align: center;
     background-color: rgb(251, 155, 0);

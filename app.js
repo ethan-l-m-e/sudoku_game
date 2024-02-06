@@ -680,7 +680,8 @@ function ready() {
         }
         previousDifficulty = difficulty;
         acceptInput = true;
-        document.getElementById("reveal-puzzle-button").classList.remove("hide-setting");
+        document.getElementById("dropdown-content").classList.remove("game-over");
+        document.getElementById("display-timer").classList.remove("game-over");
         gameTiles[0].click();
     }
 
@@ -693,6 +694,7 @@ function ready() {
         currentPlayDifficulty = null;
         acceptInput = false;
         document.getElementById("dropdown-content").classList.add("game-over");
+        document.getElementById("display-timer").classList.add("game-over");
     }
 
     // Displays the game stats.
@@ -787,6 +789,7 @@ function ready() {
         startTimer();
         currentPlayDifficulty = previousDifficulty;
         document.getElementById("dropdown-content").classList.remove("game-over");
+        document.getElementById("display-timer").classList.remove("game-over");
         acceptInput = true;
         gameTiles[0].click();
     }
